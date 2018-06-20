@@ -48,6 +48,30 @@ public class LibraryImpl {
 		// not implemented yet
 	}
 	*/
+	public static int addBook(Book b) {
+		int status = 0;
+		
+		try{
+			conn = db.getConnection();
+			ps =conn.prepareStatement("insert into booklist values(?,?,?,?,?,?)");
+			ps.setString(1, b.getISBN());
+			ps.setString(2, b.getTitle());
+			ps.setString(3, b.getAuthor());
+			ps.setString(4, "null");
+			ps.setString(5, "null");
+			ps.setInt(6, 1);
+			status = ps.executeUpdate();
+			
+			conn.close();
+
+		}catch(Exception e){
+			System.out.println(e);
+
+		}
+		return status;
+	}
+	
+	
 	public static int checkout(copy col) {
 		//check out function
 		//run SQL query
@@ -81,6 +105,52 @@ public class LibraryImpl {
 				*/
 				//function using copy class
 				ps =conn.prepareStatement("update Booklist set status = 0 where ISBN = ?");
+				ps.setString(1, col.getISBN());
+				status = ps.executeUpdate();
+				conn.close();
+				//check out function by changing status 
+			}catch(Exception e){
+				System.out.println(e);
+			}
+			return status;
+		}else {
+			return 0;
+		}
+	}
+	
+	public static int returnBook(copy col) {
+		//check out function
+		//run SQL query
+		int status_available = 1;
+		int status = 0;
+		
+		try{
+			conn = db.getConnection();
+			ps =conn.prepareStatement("select Status from Booklist where ISBN = ?");
+			ps.setString(1, col.getISBN());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				status_available = rs.getInt(1);
+			}
+			conn.close();
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		
+		if(status_available==0) {
+			try{
+				conn = db.getConnection();
+				/*
+				ps =conn.prepareStatement("insert into Collection values(?,?,?,?,?,?)");
+				ps.setString(1, col.getISBN());
+				ps.setString(2, "1");
+				ps.setString(3, "1");
+				ps.setString(4, col.getRentedBy());
+				ps.setString(5, "2018-06-15 00:00:00");
+				ps.setString(6, "2018-06-20 12:00:00");
+				*/
+				//function using copy class
+				ps =conn.prepareStatement("update Booklist set status = 1 where ISBN = ?");
 				ps.setString(1, col.getISBN());
 				status = ps.executeUpdate();
 				conn.close();

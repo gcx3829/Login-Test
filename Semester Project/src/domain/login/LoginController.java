@@ -34,7 +34,7 @@ public class LoginController extends HttpServlet {
 		String ISBN = request.getParameter("ISBN");
 		Login login = new Login(username, pass);
 		Customer c = customerDao.validateCustomer(login);
-		Book b = LibraryImpl.getBook();
+		Book b = new Book();
 		//Library library = new Library();
 		String user_display;
 		//test for showing book detail
@@ -42,14 +42,18 @@ public class LoginController extends HttpServlet {
 		if(submitType.equals("login") && c!=null && c.getName()!=null){
 			request.setAttribute("message", "Hello "+c.getName());
 			
-			if(c.getUsertype()==1) {
-				request.setAttribute("secondMessage", "Hello Administrator");}
+			
 			//extra information for administrator 
 			
 			//test for showing book detail
 			user_display = LibraryImpl.displayCollection();
 			request.setAttribute("displayTable", user_display);
-			request.getRequestDispatcher("welcome.jsp").forward(request, response);
+			if(c.getUsertype()==1) {
+				request.setAttribute("secondMessage", "Hello Administrator");
+				request.getRequestDispatcher("welcome_admin.jsp").forward(request, response);
+				}
+			else
+			request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
 		}else if(submitType.equals("register")){
 			c.setName(request.getParameter("name"));
 			c.setUsername(request.getParameter("username"));
@@ -62,11 +66,42 @@ public class LoginController extends HttpServlet {
 			int status = LibraryImpl.checkout(col);
 			//check out function using collection class
 			if(status == 1) {
-				request.setAttribute("secondMessage", "Check out success!");
+				String text = "Book "+ col.getISBN() + " Check out success!";
+				request.setAttribute("secondMessage", text);
 			}else {
 				request.setAttribute("secondMessage", "Book is not available now! Please select another one!");
 			}
-			request.getRequestDispatcher("welcome.jsp").forward(request, response);
+			user_display = LibraryImpl.displayCollection();
+			request.setAttribute("displayTable", user_display);
+			request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
+		}else if(submitType.equals("Return")){
+			int status = LibraryImpl.returnBook(col);
+			//check out function using collection class
+			if(status == 1) {
+				String text = "Book "+ col.getISBN() + " Return success!";
+				request.setAttribute("secondMessage", text);
+			}else {
+				request.setAttribute("secondMessage", "Book is not Checked Out!");
+			}
+			user_display = LibraryImpl.displayCollection();
+			request.setAttribute("displayTable", user_display);
+			request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
+		}else if(submitType.equals("addbook")) {
+			request.getRequestDispatcher("addbook.jsp").forward(request, response);
+		}else if(submitType.equals("addbookComplete")) {
+			b.setISBN(request.getParameter("ISBN"));
+			b.setTitle(request.getParameter("title"));
+			b.setAuthor(request.getParameter("author"));
+			int status = LibraryImpl.addBook(b);
+			if(status == 1) {
+				request.setAttribute("secondMessage", "Add book success!");
+			}else {
+				request.setAttribute("secondMessage", "Book is already in the database!!");
+			}
+			
+			user_display = LibraryImpl.displayCollection();
+			request.setAttribute("displayTable", user_display);
+			request.getRequestDispatcher("welcome_admin.jsp").forward(request, response);
 		}else{
 			request.setAttribute("message", "Data Not Found! Please register!");
 			request.getRequestDispatcher("register.jsp").forward(request, response);
