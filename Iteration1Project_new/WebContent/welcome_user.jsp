@@ -11,7 +11,8 @@
 <h2> ${secondMessage}</h2>
 <form name="checkform" action="LoginController" method="post">
 	ISBN Number: <input type="text" name="ISBN" id="ISBN"><br>
-	<input type="submit" name="submit" value="Check Out">
+	<input type="submit" name="submit" value="Check Out"><br>
+	<input type="submit" name="submit" value="Return">
 </form>
 
 <table rules = "all"> ${displayTable} </table> 
