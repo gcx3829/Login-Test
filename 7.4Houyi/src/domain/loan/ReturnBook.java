@@ -5,6 +5,9 @@ import domain.book.*;
 public class ReturnBook {
 	
 	public int returnBook(String ISBN) { //will eventually pass specific copy here
+		// DG will change this function
+		// need to return a specific copy
+		// need to change to returned status instead of available
 		int status=1;
 		String available="1";
 		
