@@ -9,7 +9,7 @@ import java.util.List;
 
 import db.DbManager;
 
-public class BookDaoImpl implements BookDao {
+public class BookDaoImpl implements BookDao { 
 	static Connection conn;
 	static PreparedStatement ps;
 	static DbManager db = new DbManager();
@@ -38,7 +38,7 @@ public class BookDaoImpl implements BookDao {
 		return status;
 	}
 	
-	public int findCurrentCopyNum(String ISBN){       
+	public int findCurrentCopyNum(String ISBN){   // new function    
 		int maxCopyID = 0;
 		
 		try {
@@ -63,8 +63,8 @@ public class BookDaoImpl implements BookDao {
 	public int addBook(book t) {
 		
 		try{
-			// if book title is not in database, add it into titlelist and collection
-			if (findStatus(t.getISBN()) == 0) {
+			// if book is not in titlelist table, add it into titlelist and collection
+			if (findStatus(t.getISBN()) == 0) { //use find status to see if book is in the database
 				conn = db.getConnection();
 				
 				Statement statement = conn.createStatement();
@@ -73,14 +73,14 @@ public class BookDaoImpl implements BookDao {
 				
 				statement.addBatch(query);
 				
-				query = "insert into collection values("+t.getISBN()+",1,1,null,null,null)";
+				query = "insert into collection values("+t.getISBN()+",1,1,null,null,null)"; //add new title as copy 1
 				statement.addBatch(query);
 				
 				statement.executeBatch();
 				statement.close();
 				conn.close();
-			}else {
-				int currentCopyID = findCurrentCopyNum(t.getISBN());
+			}else { // if title already exists; just add a new copy
+				int currentCopyID = findCurrentCopyNum(t.getISBN()); // find number of copies
 				currentCopyID ++;
 				conn = db.getConnection();
 				ps =conn.prepareStatement("insert into collection values(?,?,1,null,null,null)");
@@ -101,7 +101,7 @@ public class BookDaoImpl implements BookDao {
 		}
 	}
 	
-	public book getBookDetails(String ISBN) {
+	public book getBookDetails(String ISBN) { // OLD CODE
 		// returns specific book; can check out this book
 		book t = new book();
 		try{
