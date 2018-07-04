@@ -160,6 +160,9 @@ public class BookDaoImpl implements BookDao {
 	}
 	
 	public int changeStatus(String ISBN, int newStatus) { // will be changed to change status of copy
+		// will be change in future
+		// check if particular user retned book
+		// get particular instead of just title
 		// returns specific book; can check out this book
 		int status=0;
 		try{
