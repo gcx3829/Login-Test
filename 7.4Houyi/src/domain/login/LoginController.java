@@ -41,14 +41,18 @@ public class LoginController extends HttpServlet {
 			//extra information for administrator 
 			
 			//test for showing book detail
-			user_display = DisplayAll.displayCollection();
-			request.setAttribute("displayTable", user_display);
+			
 			if(u.getUsertype()==1) {
+				user_display = DisplayAll.displayCollection();
+				request.setAttribute("displayTable", user_display);
 				request.setAttribute("secondMessage", "Hello Administrator");
 				request.getRequestDispatcher("welcome_admin.jsp").forward(request, response);
 				}
-			else
-			request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
+			else {
+				user_display = DisplayAll.displayCollection();
+				request.setAttribute("displayTable", user_display);
+				request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
+			}
 		}else if(submitType.equals("register")){
 			u.setName(request.getParameter("name"));
 			u.setUsername(request.getParameter("username"));

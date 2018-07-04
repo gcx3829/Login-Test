@@ -1,4 +1,4 @@
-package domain.book; //now using book class instead of title class
+package domain.book;
 
 public class book {
 	private String ISBN;
@@ -6,7 +6,7 @@ public class book {
 	private String Author;
 	private String Category;
 	private String Edition;
-	private String CopyID; // everything here and below is from collection table
+	private String CopyID;
 	private String RendedBy;
 	private String CheckOutDate;
 	private String ReturnByDate;
@@ -53,11 +53,11 @@ public class book {
 		this.CopyID=CopyID;
 	}
 	
-	public String getRentedBy() {
-		return this.RentedBy;
+	public String getRendedBy() {
+		return this.RendedBy;
 	}
-	public void setRendedBy(String RentedBy) {
-		this.RentedBy=RentedBy;
+	public void setRendedBy(String RendedBy) {
+		this.RendedBy=RendedBy;
 	}
 	
 	public String getCheckOutDate() {

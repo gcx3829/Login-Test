@@ -9,7 +9,7 @@ import java.util.List;
 
 import db.DbManager;
 
-public class BookDaoImpl implements BookDao { 
+public class BookDaoImpl implements BookDao {
 	static Connection conn;
 	static PreparedStatement ps;
 	static DbManager db = new DbManager();
@@ -38,7 +38,7 @@ public class BookDaoImpl implements BookDao {
 		return status;
 	}
 	
-	public int findCurrentCopyNum(String ISBN){   // new function    
+	public int findCurrentCopyNum(String ISBN){       
 		int maxCopyID = 0;
 		
 		try {
@@ -63,8 +63,8 @@ public class BookDaoImpl implements BookDao {
 	public int addBook(book t) {
 		
 		try{
-			// if book is not in titlelist table, add it into titlelist and collection
-			if (findStatus(t.getISBN()) == 0) { //use find status to see if book is in the database
+			// if book title is not in database, add it into titlelist and collection
+			if (findStatus(t.getISBN()) == 0) {
 				conn = db.getConnection();
 				
 				Statement statement = conn.createStatement();
@@ -73,14 +73,14 @@ public class BookDaoImpl implements BookDao {
 				
 				statement.addBatch(query);
 				
-				query = "insert into collection values("+t.getISBN()+",1,1,null,null,null)"; //add new title as copy 1
+				query = "insert into collection values("+t.getISBN()+",1,1,null,null,null)";
 				statement.addBatch(query);
 				
 				statement.executeBatch();
 				statement.close();
 				conn.close();
-			}else { // if title already exists; just add a new copy
-				int currentCopyID = findCurrentCopyNum(t.getISBN()); // find number of copies
+			}else {
+				int currentCopyID = findCurrentCopyNum(t.getISBN());
 				currentCopyID ++;
 				conn = db.getConnection();
 				ps =conn.prepareStatement("insert into collection values(?,?,1,null,null,null)");
@@ -101,7 +101,7 @@ public class BookDaoImpl implements BookDao {
 		}
 	}
 	
-	public book getBookDetails(String ISBN) { // OLD CODE
+	public book getBookDetails(String ISBN) {
 		// returns specific book; can check out this book
 		book t = new book();
 		try{
@@ -160,9 +160,6 @@ public class BookDaoImpl implements BookDao {
 	}
 	
 	public int changeStatus(String ISBN, int newStatus) { // will be changed to change status of copy
-		// will be change in future
-		// check if particular user retned book
-		// get particular instead of just title
 		// returns specific book; can check out this book
 		int status=0;
 		try{
