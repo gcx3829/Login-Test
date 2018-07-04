@@ -43,7 +43,7 @@ public class LibraryImpl {
 		return message;
 	}
 	//Search function based on display function
-	public static String search(String keyWord) {
+	public static String search(String keyWord) { // new code
 		String message = "";
 		StringBuilder displayTable = new StringBuilder();
 		displayTable.append("<tr><th>ISBN</th><th>Title</th><th>Author</th><th>Status</th></tr>"); //set up first line of table
