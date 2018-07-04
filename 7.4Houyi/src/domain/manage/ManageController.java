@@ -21,7 +21,7 @@ public class ManageController extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		BookDao bookDao = new BookDaoImpl();
-		Title t= new Title();
+		book t= new book();
 		String submitType = request.getParameter("submit");
 		String user_display;
 		

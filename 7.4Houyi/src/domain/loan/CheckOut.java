@@ -8,11 +8,11 @@ public class CheckOut {
 		int status=0;
 		String available="0";
 		
-		Title t = new Title();
+		book b = new book();
 		BookDao bookDao = new BookDaoImpl();
 		
-		t = bookDao.getBookDetails(ISBN);
-		available=t.getStatus();
+		b = bookDao.getBookDetails(ISBN);
+		available=b.getStatus();
 		
 		//call function checkUser() to check for overdue books and possibly stop transaction for given user
 		//int userStatus = checkUser();

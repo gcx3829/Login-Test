@@ -10,7 +10,7 @@ public class DisplayAll {
 		StringBuilder displayTable = new StringBuilder();
 		displayTable.append("<tr><th>ISBN</th><th>Title</th><th>Author</th><th>Status</th></tr>"); //set up first line of table
 		BookDao bookDao = new BookDaoImpl();
-		List<Title> titles = bookDao.getTitleList();
+		List<book> titles = bookDao.getTitleList();
 		
 		for (int i=0;i<titles.size(); i++) {
 			displayTable.append("<tr>"); //for start of line in table

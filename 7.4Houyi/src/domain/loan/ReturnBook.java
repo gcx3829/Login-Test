@@ -8,11 +8,11 @@ public class ReturnBook {
 		int status=1;
 		String available="1";
 		
-		Title t = new Title();
+		book b = new book();
 		BookDao bookDao = new BookDaoImpl();
 		
-		t = bookDao.getBookDetails(ISBN);
-		available=t.getStatus();
+		b = bookDao.getBookDetails(ISBN);
+		available=b.getStatus();
 		
 		//call function to check if book is overdue and charge fees
 		//checkBook();

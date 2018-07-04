@@ -60,7 +60,7 @@ public class BookDaoImpl implements BookDao {
 		return maxCopyID;
 	}
 	
-	public int addBook(Title t) {
+	public int addBook(book t) {
 		
 		try{
 			// if book title is not in database, add it into titlelist and collection
@@ -101,9 +101,9 @@ public class BookDaoImpl implements BookDao {
 		}
 	}
 	
-	public Title getBookDetails(String ISBN) {
+	public book getBookDetails(String ISBN) {
 		// returns specific book; can check out this book
-		Title t = new Title();
+		book t = new book();
 		try{
 			conn = db.getConnection();
 			ps =conn.prepareStatement("select ISBN, Title, Author, Status from titlelist where ISBN = ?");
@@ -126,11 +126,11 @@ public class BookDaoImpl implements BookDao {
 		return t;		
 	}
 	
-	public List<Title> getTitleList() {
+	public List<book> getTitleList() {
 		//returns all titles
 		//will eventually be changed to work better with proper search function
 		ResultSet rs;
-		List<Title> titles = new ArrayList<Title>();
+		List<book> books = new ArrayList<book>();
 		try{
 			conn = db.getConnection();
 			ps =conn.prepareStatement("select ISBN, Title, Author, Status from titlelist");
@@ -144,19 +144,19 @@ public class BookDaoImpl implements BookDao {
 				else {
 					statusText = "Unavailable";
 				}
-				Title title = new Title();
-				title.setISBN(rs.getString(1));
-				title.setTitle(rs.getString(2));
-				title.setAuthor(rs.getString(3));
-				title.setStatus(statusText);
-				titles.add(title);
+				book book = new book();
+				book.setISBN(rs.getString(1));
+				book.setTitle(rs.getString(2));
+				book.setAuthor(rs.getString(3));
+				book.setStatus(statusText);
+				books.add(book);
 			}
 			conn.close();
 		}catch(Exception e){
 			System.out.println(e);
 			rs = null;
 		}
-		return titles;		
+		return books;		
 	}
 	
 	public int changeStatus(String ISBN, int newStatus) { // will be changed to change status of copy
