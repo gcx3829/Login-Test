@@ -65,11 +65,11 @@ public class LoginController extends HttpServlet {
 			customerDao.register(c);
 			request.setAttribute("successMessage", "Registration done, please login!");
 			request.getRequestDispatcher("login.jsp").forward(request, response);
-		}else if(submitType.equals("Search")) {
+		}else if(submitType.equals("Search")) { // new code
 			//Search function
 			user_display = LibraryImpl.search(keyWord);
 			request.setAttribute("displayTable", user_display);
-			request.getRequestDispatcher("welcome_user.jsp").forward(request, response);			
+			request.getRequestDispatcher("welcome_user.jsp").forward(request, response);	// end of new code		
 		}else if(submitType.equals("Check Out")){
 			int status = LibraryImpl.checkout(col);
 			//check out function using collection class
