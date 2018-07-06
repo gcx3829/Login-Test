@@ -84,5 +84,27 @@ public class UserDaoImpl implements UserDao {
 		}
 		return users;		
 	}
+	
+	public User getTypeDB(String username) {
+		//
+		User u = new User();
+		
+		try{
+			conn = db.getConnection();
+			ps =conn.prepareStatement("select * from Users where Username=?");
+			ps.setString(1, username);
+
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				u.setUsername(rs.getString(1));
+				u.setUsertype(rs.getInt(4));
+			}
+			conn.close();
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		
+		return u;
+	}
 
 }
