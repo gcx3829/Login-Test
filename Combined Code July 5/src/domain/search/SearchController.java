@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.search.DisplayAll;
+import domain.user.UserDaoImpl;
+import domain.user.UserDao;
+import domain.user.User;
 import domain.book.*;
 import domain.manage.ManageBooks;
 import domain.manage.ManageUsers;
@@ -26,11 +29,15 @@ public class SearchController extends HttpServlet {
 		String submitType = request.getParameter("submit");
 		Search search = new Search();
 		String book_table;
+		UserDao userDao = new UserDaoImpl();
 		
 		ManageBooks mb = new ManageBooks();
 		ManageUsers mu = new ManageUsers();
 		
-		int type = 0; // replace this code with something that gets userType
+		//int type = 0; // replace this code with something that gets userType
+		String username = request.getSession().getAttribute("username").toString();
+		User user = userDao.getTypeDB(username);
+		int type = user.getUsertype();
 		
 		if (type==0) {
 			if(submitType.equals("Search")) { // new code
