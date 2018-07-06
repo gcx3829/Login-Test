@@ -27,5 +27,7 @@ public interface UserDao {
 
 	
 	public List<User> getUserList();
+	
+	public User getTypeDB(String username);
 }
 
