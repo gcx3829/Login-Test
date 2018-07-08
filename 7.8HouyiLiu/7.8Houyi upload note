@@ -1,0 +1,58 @@
+For the addbook function, the changed part is shown below
+
+manageController.java
+		else if(submitType.equals("addbookComplete")) {
+			b.setISBN(request.getParameter("ISBN"));
+			b.setTitle(request.getParameter("title"));
+			b.setAuthor(request.getParameter("author"));
+			b.setCategory(request.getParameter("category"));
+			b.setEdition(request.getParameter("edition"));
+
+
+BookDaoImpl.java
+
+	getTitleList
+			while (rs.next()) {
+				String statusText;
+				//code to find the status of the books
+				if (findStatus(rs.getString(1)) == 1) { //code to turn int for 			status into string
+					statusText = "Available";
+				}
+				else {
+					statusText = "Unavailable";
+				}
+				Book book = new Book();
+				book.setISBN(rs.getString(1));
+				book.setTitle(rs.getString(2));
+				book.setAuthor(rs.getString(3));
+				book.setStatus(statusText);
+				books.add(book);
+			}
+
+
+AddBook.jsp
+
+	Add Book <br>
+	ISBN:   <input type="text" name="ISBN" id = "ISBN"> <br>
+	
+	Title:  <input type="text" name="title" id = "title"><br>
+	
+	Author: <input type="text" name="author" id = "author"><br>
+	
+	Category: <input type="text" name="category" id = "category"><br>
+	
+	Edition: <input type="text" name="edition" id = "edition"><br>
+	
+	
+
+For check out and return function, the changes are
+bookdao.java
+bookdaoimpl.java
+checkout.java
+return.java
+
+
+
+
+	
+	
