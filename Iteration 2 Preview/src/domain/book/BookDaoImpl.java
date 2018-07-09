@@ -128,7 +128,7 @@ public int addBook(Book t) {
 		int status=0;
 		try{
 			conn = db.getConnection();
-			ps =conn.prepareStatement("update collection set status = ? where ISBN = ? and CopyID = ?");
+			ps =conn.prepareStatement("update collection set Status = ? where ISBN = ? and CopyID = ?");
 			ps.setString(2, ISBN);
 			ps.setString(3, CopyID);
 			ps.setInt(1, newStatus);
@@ -140,7 +140,7 @@ public int addBook(Book t) {
 		return status;
 	}
 	
-	public int changeStatus_Withcopyid(String ISBN, int copyid, String Userid ,int newStatus) {
+	/*public int changeStatus_Withcopyid(String ISBN, int copyid, String Userid ,int newStatus) {
 		int status=0;
 		// rework this so that editTitleFields and editCopyFields is used instead
 		try{
@@ -148,8 +148,8 @@ public int addBook(Book t) {
 				conn = db.getConnection();
 				ps =conn.prepareStatement(
 						"update collection "
-						+ "set status = ?, RentedBy = ?, CheckOutDate= ? , ReturnByDate = ? "
-						+ "where ISBN = ? and copyid = ?");
+						+ "set Status = ?, RentedBy = ?, CheckOutDate= ? , ReturnByDate = ? "
+						+ "where ISBN = ? and CopyID = ?");
 				ps.setInt(1, newStatus);
 				ps.setString(2, Userid);
 
@@ -187,7 +187,7 @@ public int addBook(Book t) {
 			System.out.println(e);
 		}	
 		return status;
-	}
+	}*/
 	
 	@Override
 	public int titleExists(String ISBN) {
@@ -218,6 +218,7 @@ public int addBook(Book t) {
 			ps.setString(1, ISBN);
 			ps.setString(2, CopyID);
 			ResultSet rs = ps.executeQuery();
+			//rs.next();
 			if(rs.next()){
 				status = 1; //book exists
 			}
@@ -337,7 +338,7 @@ public int addBook(Book t) {
 		
 		try {
 			conn = db.getConnection();
-			ps =conn.prepareStatement("select copyid from collection where ISBN = ? AND RentedBy = ?");
+			ps =conn.prepareStatement("select CopyID from collection where ISBN = ? AND RentedBy = ?");
 			ps.setString(1, ISBN);
 			ps.setString(2, Userid);
 			ResultSet rs = ps.executeQuery();

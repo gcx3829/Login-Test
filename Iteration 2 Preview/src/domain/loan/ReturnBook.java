@@ -1,5 +1,8 @@
 package domain.loan;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import domain.book.*;
 
 public class ReturnBook {
@@ -27,11 +30,21 @@ public class ReturnBook {
 			return status;
 		}
 		
-		if(bookDao.changeStatus_Withcopyid(ISBN, copyid, Userid, 2) == 0) {
+		int temp = bookDao.changeStatus(ISBN, Integer.toString(copyid), 2);
+		if (temp==1) {
+			bookDao.editCopyFields("RentedBy", ISBN, Integer.toString(copyid), null);
+			bookDao.editCopyFields("CheckOutDate", ISBN, Integer.toString(copyid), null);
+			bookDao.editCopyFields("ReturnByDate", ISBN, Integer.toString(copyid), null);
+		} else {
 			status = 3;
-			System.out.println("Check out fail!!");
+			System.out.println("Return Book fail!!");
 			return status;
 		}
+		//if(bookDao.changeStatus_Withcopyid(ISBN, copyid, Userid, 2) == 0) {
+		//	status = 3;
+		//	System.out.println("Check out fail!!");
+		//	return status;
+		//}
 		
 		status = 1;
 		

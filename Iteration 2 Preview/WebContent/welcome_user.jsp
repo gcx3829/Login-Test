@@ -11,7 +11,6 @@
 <h2> ${secondMessage}</h2>
 <form name="checkform" action="LoanController" method="post">
 	ISBN Number: <input type="text" name="ISBN" id="ISBN"><br>
-	<input type="submit" name="submit" value="Check Out"><br>
 	<input type="submit" name="submit" value="Return">
 	<input type="submit" name="submit" value="Search">
 </form>

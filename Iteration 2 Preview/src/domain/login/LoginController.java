@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import domain.user.*;
+import domain.book.Book;
 import domain.manage.ManageUsers;
 import domain.search.DisplayAll;
+import domain.search.Search;
 
 /**
  * Servlet implementation class Login
@@ -42,17 +44,25 @@ public class LoginController extends HttpServlet {
 			//extra information for administrator 
 			
 			//test for showing book detail
-			user_display = DisplayAll.displayCollection();
-			request.setAttribute("displayTable", user_display);
+			Book b = new Book();
+			Search search = new Search();
+			b.setNull();
+			//user_display = DisplayAll.displayCollection();
 			if(u.getUsertype()==1) {
+				user_display = search.displayBooks(search.search(b));
+				request.setAttribute("displayTable", user_display);
 				ManageUsers mu = new ManageUsers(); //new code
 				user_display = mu.displayUsers(); // new code
 				request.setAttribute("displayTable2", user_display); // new code
 				request.setAttribute("secondMessage", "Hello Administrator");
 				request.getRequestDispatcher("welcome_admin.jsp").forward(request, response);
 				}
-			else
-			request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
+			else {
+				b.setRentedBy(username);
+				user_display = search.displayTitles(search.search(b));
+				request.setAttribute("displayTable", user_display);
+				request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
+			}
 		}else if(submitType.equals("register")){
 			u.setName(request.getParameter("name"));
 			u.setUsername(request.getParameter("username"));

@@ -11,6 +11,7 @@
 <body>
 <form name="regform" action="ManageController" method="post">
 	<br>${message}<br>
+	<h2> ${secondMessage}</h2>
 	<h1> Process Returned Books </h1>
 	<br>	
 	Returned book ISBN:   <input type="text" name="ISBN" id = "ISBN"> <br>	
@@ -27,7 +28,7 @@
 </form>
 <br/>
 <br>
- ${displayTable}
+<table rules = "all"> ${displayTable} </table> 
 <a href = "index.jsp">Back to index</a>
 </body>
 </html>

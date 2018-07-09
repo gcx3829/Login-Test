@@ -11,8 +11,6 @@ public interface BookDao {
 	
 	public int changeStatus(String ISBN, String CopyID, int newStatus);
 	
-	public int changeStatus_Withcopyid(String ISBN,int copyid, String Userid, int newStatus);
-	
 	public int titleExists(String ISBN); // NEW FUNCTION
 	
 	public int copyExists(String ISBN, String CopyID); // NEW FUNCTION

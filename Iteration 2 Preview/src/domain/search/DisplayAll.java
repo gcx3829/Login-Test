@@ -17,7 +17,7 @@ public class DisplayAll {
 			displayTable.append("<td>").append(titles.get(i).getISBN()).append("</td>"); // prints ISBN
 			displayTable.append("<td>").append(titles.get(i).getTitle()).append("</td>"); // prints Title
 			displayTable.append("<td>").append(titles.get(i).getAuthor()).append("</td>"); // prints Author
-			displayTable.append("<td>").append(titles.get(i).getStatus()).append("</td>"); //prints status text
+			displayTable.append("<td>").append(titles.get(i).getStatus()).append("</td>"); // prints Status
 			displayTable.append("</tr>"); //for end of line in table
 		}
 		

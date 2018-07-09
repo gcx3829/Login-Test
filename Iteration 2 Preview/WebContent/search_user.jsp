@@ -30,6 +30,13 @@
 	<input type="reset" name="reset"><br>
 	<input type="submit" name="submit" value="Return to Home page" >
 </form>
+<form name="regform" action="LoanController" method="post">
+	<br> <br> Check Out Book <br>
+	
+	Check Out ISBN:   <input type="text" name="ISBN" id = "ISBN"> <br>
+	<input type="submit" name="submit" value="Check Out"><br>
+	<br/>
+</form>
 <br/>
 <table rules = "all"> ${displayTable} </table> 
 <a href = "index.jsp">Back to index</a>

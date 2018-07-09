@@ -27,6 +27,7 @@ public class ManageController extends HttpServlet {
 		Book b=new Book();
 		ManageUsers mu = new ManageUsers();
 		ManageBooks mb = new ManageBooks();
+		Search search = new Search();
 		String submitType = request.getParameter("submit");
 		String book_display;
 		String user_display;
@@ -46,13 +47,15 @@ public class ManageController extends HttpServlet {
 				request.setAttribute("secondMessage", "Book is already in the database!!");
 			}
 			
-			book_display = DisplayAll.displayCollection();
+			b.setNull();
+			book_display = search.displayBooks(search.search(b));
 			request.setAttribute("displayTable", book_display);
 			user_display = mu.displayUsers();
 			request.setAttribute("displayTable2", user_display);
 			request.getRequestDispatcher("welcome_admin.jsp").forward(request, response);
 		}else if(submitType.equals("editbook")) {
-			book_display = DisplayAll.displayCollection();
+			b.setNull();
+			book_display = search.displayBooks(search.search(b));
 			request.setAttribute("displayTable", book_display);
 			request.getRequestDispatcher("editbook.jsp").forward(request, response);
 		}else if(submitType.equals("editbookcomplete")) {
@@ -82,7 +85,8 @@ public class ManageController extends HttpServlet {
 			}
 			
 			//user_display = mu.displayUsers();
-			book_display = DisplayAll.displayCollection();
+			b.setNull();
+			book_display = search.displayBooks(search.search(b));
 			request.setAttribute("displayTable", book_display);
 			user_display = mu.displayUsers();
 			request.setAttribute("displayTable2", user_display);
@@ -92,16 +96,16 @@ public class ManageController extends HttpServlet {
 			int status=0;
 			
 			//change call for book details; need to get copy you are talking about
-			b.setNull();
-			b.setISBN(ISBN);
-			b.setStatus("2");
 			Search s = new Search();
-			List<Book> books = s.search(b); //maybe make function for to get copyID from ISBN and status
-			if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "2")))==0) {
+			b.setNull();
+			b.setISBN(ISBN); //maybe make function for to get copyID from ISBN and status
+			if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "2")))==1) {
 				bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "2"), 3);
-			} else if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "3")))==0) {
+				status=1;
+			} else if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "3")))==1) {
 				bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "3"), 3);
-			}
+				status = 1;
+			} 
 			//if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "2")))==0 || 
 			//		(bookDao.copyExists(ISBN, s.getCopyID(ISBN, "3")))==0) {
 			//	bookDao.changeStatus(ISBN, "1", 3);
@@ -112,7 +116,12 @@ public class ManageController extends HttpServlet {
 			}else {
 				request.setAttribute("secondMessage", "Book has not been returned");
 			}
-			book_display = DisplayAll.displayCollection(); // should just display returned books
+			b.setNull();
+			b.setStatus("2");
+			List<Book> books = search.search(b);
+			b.setStatus("3");
+			books.addAll(search.search(b));
+			book_display = search.displayBooks(books);
 			request.setAttribute("displayTable", book_display);
 			request.getRequestDispatcher("processreturn.jsp").forward(request, response);
 		}else if(submitType.equals("Ruined")) {
@@ -121,13 +130,11 @@ public class ManageController extends HttpServlet {
 			//change call for book details; need to get copy you are talking about
 			b.setNull();
 			b.setISBN(ISBN);
-			b.setStatus("2");
 			Search s = new Search();
-			List<Book> books = s.search(b);
-			if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "2")))==0) {
-				bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "2"), 4);
-			} else if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "3")))==0) {
-				bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "3"), 4);
+			if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "2")))==1) {
+				status = bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "2"), 4);
+			} else if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "3")))==1) {
+				status =bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "3"), 4);
 			}
 			
 			if(status == 1) {
@@ -135,7 +142,12 @@ public class ManageController extends HttpServlet {
 			}else {
 				request.setAttribute("secondMessage", "Book has not been returned");
 			}
-			book_display = DisplayAll.displayCollection(); // should just display returned books
+			b.setNull();
+			b.setStatus("2");
+			List<Book> books = search.search(b);
+			b.setStatus("3");
+			books.addAll(search.search(b));
+			book_display = search.displayBooks(books);
 			request.setAttribute("displayTable", book_display);
 			request.getRequestDispatcher("processreturn.jsp").forward(request, response);
 		}else if(submitType.equals("Presentable")) {
@@ -144,32 +156,43 @@ public class ManageController extends HttpServlet {
 			//change call for book details; need to get copy you are talking about
 			b.setNull();
 			b.setISBN(ISBN);
-			b.setStatus("2");
 			Search s = new Search();
-			List<Book> books = s.search(b);
-			if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "2")))==0) {
-				bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "2"), 1);
-			} else if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "3")))==0) {
-				bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "3"), 1);
+			if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "2")))==1) {
+				status = bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "2"), 1);
+			} else if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "3")))==1) {
+				status = bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "3"), 1);
 			}
 			
 			if(status == 1) {
-				request.setAttribute("secondMessage", "Book has been sent for repair");
+				request.setAttribute("secondMessage", "Book has been made available for Library patrons");
 			}else {
-				request.setAttribute("secondMessage", "Book has not been returned");
+				request.setAttribute("secondMessage", "Book has not been returned"+ s.getCopyID(ISBN, "2"));
 			}
-			book_display = DisplayAll.displayCollection(); // should just display returned books
+			b.setNull();
+			b.setStatus("2");
+			List<Book> books = search.search(b);
+			b.setStatus("3");
+			books.addAll(search.search(b));
+			book_display = search.displayBooks(books);
 			request.setAttribute("displayTable", book_display);
 			request.getRequestDispatcher("processreturn.jsp").forward(request, response);
 		}else if(submitType.equals("process returned books")) {
 			//
-			book_display = DisplayAll.displayCollection(); // should just display returned books
+			//book_display = DisplayAll.displayCollection(); // should just display returned books
+			b.setNull();
+			b.setStatus("2");
+			List<Book> books = search.search(b);
+			b.setStatus("3");
+			books.addAll(search.search(b));
+			book_display = search.displayBooks(books);
 			request.setAttribute("displayTable", book_display);
 			request.getRequestDispatcher("processreturn.jsp").forward(request, response);
 		}else if(submitType.equals("Search")) {
 			request.getRequestDispatcher("search_admin.jsp").forward(request, response);
-		}else if(submitType.equals("Return to home page")) {
-			book_display = DisplayAll.displayCollection(); // 
+		}else if(submitType.equals("Return to Home page")) {
+			//book_display = DisplayAll.displayCollection(); // 
+			b.setNull();
+			book_display = search.displayBooks(search.search(b));
 			request.setAttribute("displayTable", book_display);
 			user_display = mu.displayUsers();
 			request.setAttribute("displayTable2", user_display);

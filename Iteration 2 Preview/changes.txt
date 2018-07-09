@@ -14,3 +14,8 @@ made a new function in Search called getCopyID which returns a String
 added setNull function to book; 
 
 made a search_admin.jsp page
+
+Don;t use displayAll anymore; recreate functionality using book, Search.search(book) and Search.displayBooks()
+
+got rid of changeStatus_withcopyid; 
+Note for presentation: we are thinking of splitting the process returns function into its own class; however, couldn't do it this time

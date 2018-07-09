@@ -113,7 +113,7 @@ public class Search {
 		StringBuilder displayTable = new StringBuilder();
 		BookDao bookDao = new BookDaoImpl();
 		displayTable.append("<tr><th>ISBN</th><th>Title</th><th>Author</th><th>Category</th><th>Edition</th><th>Status</th>"
-				+ "<th>Rented By</th><th>Check Out Date</th><th>Return Deadline</th></tr>"); //set up first line of table
+				+ "<th>Copy ID</th><th>Rented By</th><th>Check Out Date</th><th>Return Deadline</th></tr>"); //set up first line of table
 		
 		String temp;
 		for (int i=0;i<books.size(); i++) {
@@ -124,18 +124,20 @@ public class Search {
 			displayTable.append("<td>").append(books.get(i).getCategory()).append("</td>"); // prints Category
 			displayTable.append("<td>").append(books.get(i).getEdition()).append("</td>"); // prints Edition
 			String statusText=""; //find if book with this ISBN is available
-			if (Integer.toString(bookDao.findStatus(books.get(i).getISBN())).compareTo("1")==0) {
+			if (books.get(i).getStatus().compareTo("1")==0) {
 				statusText = "Available";
-			}else if (Integer.toString(bookDao.findStatus(books.get(i).getISBN())).compareTo("2")==0){
+			}else if (books.get(i).getStatus().compareTo("2")==0){
 				statusText = "Returned";
-			}else if (Integer.toString(bookDao.findStatus(books.get(i).getISBN())).compareTo("3")==0){
+			}else if (books.get(i).getStatus().compareTo("3")==0){
 				statusText = "Under Repair";
-			}else if (Integer.toString(bookDao.findStatus(books.get(i).getISBN())).compareTo("4")==0){
+			}else if (books.get(i).getStatus().compareTo("4")==0){
 				statusText = "Ruined";
-			}else if (Integer.toString(bookDao.findStatus(books.get(i).getISBN())).compareTo("0")==0){
+			}else if (books.get(i).getStatus().compareTo("0")==0){
 				statusText = "Checked Out";
 			}
+			//statusText = books.get(i).getStatus();
 			displayTable.append("<td>").append(statusText).append("</td>"); //prints status text
+			displayTable.append("<td>").append(books.get(i).getCopyID()).append("</td>");
 			if (books.get(i).getRentedBy().isEmpty()) {temp = "N/A"; }
 			else {temp = books.get(i).getRentedBy(); }
 			displayTable.append("<td>").append(temp).append("</td>"); // prints Rented By
