@@ -1,0 +1,16 @@
+This is a log of all changes made after meeting on 7/8
+Combined all code together
+
+created a SearchCopyFields in bookDao
+
+added getAllBooks function to bookDao; used by Search class
+
+search returns type list<book>
+the search class has a new function, displayTitles(list<Book>) which returns a string
+the Search class has another new function, displayBooks(list<Book>) which return a string
+The Search class has a new function, displayUnloaned(list<Book>) which returns a string
+made a new function in Search called getCopyID which returns a String
+
+added setNull function to book; 
+
+made a search_admin.jsp page
