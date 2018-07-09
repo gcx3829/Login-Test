@@ -26,7 +26,6 @@ public class ManageController extends HttpServlet {
 		BookDao bookDao = new BookDaoImpl();
 		Book b=new Book();
 		ManageUsers mu = new ManageUsers();
-		ManageBooks mb = new ManageBooks();
 		Search search = new Search();
 		String submitType = request.getParameter("submit");
 		String book_display;
@@ -59,6 +58,7 @@ public class ManageController extends HttpServlet {
 			request.setAttribute("displayTable", book_display);
 			request.getRequestDispatcher("editbook.jsp").forward(request, response);
 		}else if(submitType.equals("editbookcomplete")) {
+			EditBooks eb = new EditBooks();
 			String ISBN = request.getParameter("TargetISBN");
 			String CopyID = request.getParameter("TargetCopyID");
 			b.setISBN(request.getParameter("ISBN"));
@@ -73,9 +73,9 @@ public class ManageController extends HttpServlet {
 			b.setStatus(request.getParameter("Status"));
 			int status=0;
 			if (CopyID.isEmpty()) {
-				status = mb.editTitle(b, ISBN);
+				status = eb.editTitle(b, ISBN);
 			} else {
-				status = mb.editCopy(b, ISBN, CopyID);
+				status = eb.editCopy(b, ISBN, CopyID);
 			}
 			
 			if(status == 1) {
@@ -92,30 +92,8 @@ public class ManageController extends HttpServlet {
 			request.setAttribute("displayTable2", user_display);
 			request.getRequestDispatcher("welcome_admin.jsp").forward(request, response);
 		}else if(submitType.equals("Repair Needed")) {
-			String ISBN = request.getParameter("ISBN");
-			int status=0;
-			
-			//change call for book details; need to get copy you are talking about
-			Search s = new Search();
-			b.setNull();
-			b.setISBN(ISBN); //maybe make function for to get copyID from ISBN and status
-			if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "2")))==1) {
-				bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "2"), 3);
-				status=1;
-			} else if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "3")))==1) {
-				bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "3"), 3);
-				status = 1;
-			} 
-			//if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "2")))==0 || 
-			//		(bookDao.copyExists(ISBN, s.getCopyID(ISBN, "3")))==0) {
-			//	bookDao.changeStatus(ISBN, "1", 3);
-			//}
-			
-			if(status == 1) {
-				request.setAttribute("secondMessage", "Book has been sent for repair");
-			}else {
-				request.setAttribute("secondMessage", "Book has not been returned");
-			}
+			ProcessReturn pr = new ProcessReturn();
+			request.setAttribute("secondMessage", pr.processReturn(request.getParameter("ISBN"), 2));
 			b.setNull();
 			b.setStatus("2");
 			List<Book> books = search.search(b);
@@ -125,23 +103,8 @@ public class ManageController extends HttpServlet {
 			request.setAttribute("displayTable", book_display);
 			request.getRequestDispatcher("processreturn.jsp").forward(request, response);
 		}else if(submitType.equals("Ruined")) {
-			String ISBN = request.getParameter("ISBN");
-			int status=0;
-			//change call for book details; need to get copy you are talking about
-			b.setNull();
-			b.setISBN(ISBN);
-			Search s = new Search();
-			if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "2")))==1) {
-				status = bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "2"), 4);
-			} else if ((bookDao.copyExists(ISBN, s.getCopyID(ISBN, "3")))==1) {
-				status =bookDao.changeStatus(ISBN, s.getCopyID(ISBN, "3"), 4);
-			}
-			
-			if(status == 1) {
-				request.setAttribute("secondMessage", "Book has been sent for repair");
-			}else {
-				request.setAttribute("secondMessage", "Book has not been returned");
-			}
+			ProcessReturn pr = new ProcessReturn();
+			request.setAttribute("secondMessage", pr.processReturn(request.getParameter("ISBN"), 3));
 			b.setNull();
 			b.setStatus("2");
 			List<Book> books = search.search(b);
@@ -151,9 +114,9 @@ public class ManageController extends HttpServlet {
 			request.setAttribute("displayTable", book_display);
 			request.getRequestDispatcher("processreturn.jsp").forward(request, response);
 		}else if(submitType.equals("Presentable")) {
-			String ISBN = request.getParameter("ISBN");
+			/*String ISBN = request.getParameter("ISBN");
 			int status=0;
-			//change call for book details; need to get copy you are talking about
+			change call for book details; need to get copy you are talking about
 			b.setNull();
 			b.setISBN(ISBN);
 			Search s = new Search();
@@ -166,8 +129,10 @@ public class ManageController extends HttpServlet {
 			if(status == 1) {
 				request.setAttribute("secondMessage", "Book has been made available for Library patrons");
 			}else {
-				request.setAttribute("secondMessage", "Book has not been returned"+ s.getCopyID(ISBN, "2"));
-			}
+				request.setAttribute("secondMessage", "Book has not been returned");
+			} */
+			ProcessReturn pr = new ProcessReturn();
+			request.setAttribute("secondMessage", pr.processReturn(request.getParameter("ISBN"), 1));
 			b.setNull();
 			b.setStatus("2");
 			List<Book> books = search.search(b);

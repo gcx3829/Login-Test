@@ -7,12 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import domain.search.DisplayAll;
 import domain.user.UserDaoImpl;
 import domain.user.UserDao;
 import domain.user.User;
 import domain.book.*;
-import domain.manage.ManageBooks;
 import domain.manage.ManageUsers;
 
 /**

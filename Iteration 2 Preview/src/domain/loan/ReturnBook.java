@@ -51,9 +51,19 @@ public class ReturnBook {
 		return status;
 	}
 
-	public int checkOverdue() {
+	public int checkOverdue(String ISBN, String username) {
 		//checks to see if book is overdue
-		return 0;
+		BookDao bookDao = new BookDaoImpl();
+		int status=0;
+		
+		int copyid = bookDao.findUserRentCopyID(ISBN, username);
+		Book b = bookDao.getCopyDetails(ISBN, Integer.toString(copyid));
+		b.getReturnByDate(); //get return by date into correct format and compare to time now using date.compare (date 2)
+		// if date1 is after date 2,  then value >0
+		// then change status to 1 and return it
+		// in loan controller, have if statement will give statement outlining a fee to be paid if book is returned late
+		
+		return status;
 	}
 
 }

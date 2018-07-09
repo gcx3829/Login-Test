@@ -5,7 +5,9 @@ import java.util.List;
 public interface BookDao {
 	public int addBook(Book t);
 	
-	public Book getBookDetails(String ISBN, String CopyID);
+	public Book getTitleDetails(String ISBN);
+	
+	public Book getCopyDetails(String ISBN, String CopyID);
 	
 	public List<Book> getTitleList();
 	

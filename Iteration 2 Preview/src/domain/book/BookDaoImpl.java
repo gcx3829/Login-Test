@@ -22,7 +22,7 @@ public int addBook(Book t) {
 		
 		try{
 			// if book is not in titlelist table, add it into titlelist and collection
-			if (findStatus(t.getISBN()) == 0) { //use find status to see if book is in the database
+			if (titleExists(t.getISBN()) == 0) { //use find status to see if book is in the database
 				conn = db.getConnection();
 				
 				Statement statement = conn.createStatement();
@@ -60,23 +60,48 @@ public int addBook(Book t) {
 	}
 	
 	@Override
-	public Book getBookDetails(String ISBN, String Copy) {
+	public Book getTitleDetails(String ISBN) {
 		// returns specific book; can check out this book
 		Book b = new Book();
 		try{
 			conn = db.getConnection();
-			ps =conn.prepareStatement("select ISBN, Title, Author, Status from TitleList where ISBN = ?");
+			ps =conn.prepareStatement("select ISBN, Title, Author from TitleList where ISBN = ?");
 			ps.setString(1, ISBN);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				b.setISBN(rs.getString(1));
 				b.setTitle(rs.getString(2));
 				b.setAuthor(rs.getString(3));
-				b.setStatus(rs.getString(4));
 				
 				// call function here to get all book copies
 				// count number of available copies from this function call
 				// this will eventually replace status
+			}
+			conn.close();
+		}catch(Exception e){
+			System.out.println(e);
+		}
+		return b;		
+	}
+	
+	@Override
+	public Book getCopyDetails(String ISBN, String CopyID) {
+		// returns specific book; can check out this book
+		Book b = new Book();
+		try{
+			conn = db.getConnection();
+			ps =conn.prepareStatement("select ISBN, CopyID, Status, RentedBy, CheckOutDate, ReturnByDate "
+					+ "from collection where ISBN = ? and CopyID = ?");
+			ps.setString(1, ISBN);
+			ps.setString(1, CopyID);
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				b.setISBN(rs.getString(1));
+				b.setCopyID(rs.getString(2));
+				b.setStatus(rs.getString(3));
+				b.setRentedBy(rs.getString(4));
+				b.setCheckOutDate(rs.getString(5));
+				b.setReturnByDate(rs.getString(6));
 			}
 			conn.close();
 		}catch(Exception e){

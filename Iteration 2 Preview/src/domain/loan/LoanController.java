@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import domain.book.Book;
 import domain.search.*;
 
 /**
@@ -23,6 +24,8 @@ public class LoanController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		CheckOut checkOut = new CheckOut();
 		ReturnBook returnBook = new ReturnBook();
+		Book b = new Book();
+		Search s = new Search();
 		String submitType = request.getParameter("submit");
 		String ISBN = request.getParameter("ISBN");
 		String Userid = (String) request.getSession().getAttribute("username");
@@ -46,7 +49,10 @@ public class LoanController extends HttpServlet {
 				String text = "You already rent Book " +ISBN+" !!! Check out failed";
 				request.setAttribute("secondMessage", text);
 			}
-			user_display = DisplayAll.displayCollection();
+			b.setNull();
+			b.setRentedBy(Userid);
+			user_display = s.displayTitles(s.search(b));
+			//user_display = DisplayAll.displayCollection();
 			request.setAttribute("displayTable", user_display);
 			request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
 		}else if(submitType.equals("Return")){
@@ -64,7 +70,10 @@ public class LoanController extends HttpServlet {
 				String text = "Book "+ ISBN + " Check out failed!!";
 				request.setAttribute("secondMessage", text);
 			}
-			user_display = DisplayAll.displayCollection();
+			b.setNull();
+			b.setRentedBy(Userid);
+			user_display = s.displayTitles(s.search(b));
+			//user_display = DisplayAll.displayCollection();
 			request.setAttribute("displayTable", user_display);
 			request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
 		}else if(submitType.equals("Search")){
