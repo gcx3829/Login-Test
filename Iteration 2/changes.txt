@@ -1,0 +1,31 @@
+This is a log of all changes made after meeting on 7/8
+Combined all code together
+
+created a SearchCopyFields in bookDao
+
+added getAllBooks function to bookDao; used by Search class
+
+search returns type list<book>
+the search class has a new function, displayTitles(list<Book>) which returns a string (just title fields user should see)
+the Search class has another new function, displayBooks(list<Book>) which return a string (all fields in database)
+made a new function in Search called getCopyID which returns a String
+
+added setNull function to book; used eerywhere
+
+made a search_admin.jsp page
+
+Don't use displayAll anymore; recreate functionality using book, Search.search(book) and search.displayBooks()
+
+got rid of changeStatus_withcopyid;
+
+made ManageBooks.processReturn(String ISBN, int condition), which is used by ManageController
+
+Completely reformatted the manage class to mirror the loan class
+edit function are now in EditBooks class;
+delete function are now in DeleteBooks Class; (This is still unused/unimplemented in controller)
+processreturn function is now in ProcessReturn class;
+
+in bookDao, deleted getBookDetails, and replaced with getTitleDetails, and getCopyDetails function
+
+Note for presentation: we are thinking of splitting the process returns function into its own package; however, couldn't do it this time
+Another Note: haven't implemented system to charge fees
