@@ -1,0 +1,11 @@
+added inventoryID to book; added getInventoryID and setInventoryID to book methods
+deleted CopyID, and all related methods from Book; replaced all methods with getInventoryID in my code
+Created new Search file; created SearchBookDetails, SearchCheckedOut, SearchTitles, SearchUsers subclasses
+changed controllers to use new Search functions
+Added necessary BookDao functions for search; marked in both files as function that do not need to be changed
+added getBooks function which uses InventoryID to return book object
+Marked in controller what code needs to be changed
+
+
+FOR FUTURE:
+need to change my bookDao function to use Book Constructor
