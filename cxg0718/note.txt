@@ -1,0 +1,4 @@
+Note:
+	1. Changed structure of edit book. Will not use editbook.java anymore.
+		Now use bookdao.getBook() and bookdao.update();
+	2. Edit book function will target each copy with inventoryID. Changing of title information will cause same changes to books with same ISBN.
