@@ -1,0 +1,3 @@
+Changed database login to fit my system config, commented out to restore original login in.
+Added class addbooks and method add.
+Changes controller.
