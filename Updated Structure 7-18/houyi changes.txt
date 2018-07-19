@@ -1,0 +1,12 @@
+1.make a little change in searchDetails(Search query) in bookdaoimpl.java to make it display the correct user rented books
+104				if (query.getValue("Renter").length()>0) {
+105				ps = conn.prepareStatement(q + " and loan.Renter = ?");
+106				ps.setString(7,query.getValue("Renter"));
+
+2. add constructor in book class
+
+3. add several function in bookdao
+
+4. change loan.domain into useloan.domain and create a new loan.domain
+
+5. changed a lot in loan.domain and useloan.domain
