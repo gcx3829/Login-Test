@@ -1,0 +1,16 @@
+Added most of the functionality for checkout and return book to loan as methods
+add way for most controller to retrieve/maintain same user across entire session
+changed getBook, and getTitle methods in bookDao; new initialize new books by getting them from DB when ID info is known
+changed addbook function in bookDao. 
+added rentedBooks to user;
+added check out function to user
+added return books function to user
+added verify function to loan (used in check out)
+added new constructor for loan
+added displayBooks function to user; made SearchCheckedOut irrelevant class
+added editAll, and editTitle to books methods
+added process return as a method of Manage Controller
+added update and delete methods to loanDao
+
+Classes that are no longer needed:
+library, addBook, editBook, SearchCheckOut, ProcessReturn, CheckOut, ReturnBook
