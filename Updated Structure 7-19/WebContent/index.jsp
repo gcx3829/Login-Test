@@ -4,13 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Welcome</title>
+<title>Online Library Management System</title>
 </head>
 <body>
 	<h1>Welcome to Online Library System!</h1>
 	<h2>Please login or register.</h2>
 	<p>
-		<a href = login.jsp>Login</a><br>
+		<a href = login.jsp name = "loginLink" >Login</a><br>
 		<a href = register.jsp>Register</a>
 	</p>
 </body>

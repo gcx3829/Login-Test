@@ -7,7 +7,7 @@
 <head>
 <script type="text/javascript" src="script.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Login Page</title>
+<title>Login page</title>
 </head>
 <body>
 	<%out.print("Hello!"); %>
@@ -15,14 +15,14 @@
 	
 	
 	<%! int number1, number2; %>
-	
+	<p>
 	<%
 		DbManager db = new DbManager();
 		Connection conn = (Connection) db.getConnection();
 		if(conn == null)
-			out.print("failed");
+			out.print("Database connection failed");
 		else
-			out.print("succeeded");
+			out.print("Database connection succeeded");
 	
 	%>
 	<br/>
