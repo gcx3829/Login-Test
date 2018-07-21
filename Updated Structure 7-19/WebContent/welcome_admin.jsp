@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Administrator Welcome Page</title>
+<title>Staff Welcome Page</title>
 </head>
 <body>
 <h1> ${message} !!! </h1>
@@ -13,7 +13,7 @@
 	<input type="submit" name="submit" value="addbook">
 	<input type="submit" name="submit" value="editbook">
 	<input type="submit" name="submit" value="process returned books">
-	<input type="submit" name="submit" value="Search">
+	<input type="submit" name="submit" value="Search" id = "search">
 </form>
 
 <table rules = "all"> ${displayTable} </table> 

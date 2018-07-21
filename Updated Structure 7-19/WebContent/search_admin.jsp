@@ -5,7 +5,7 @@
 <head>
 <script type="text/javascript" src="script.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Search Books</title>
+<title>Staff Search Books</title>
 
 </head>
 <body>
@@ -44,7 +44,7 @@
 	
 	<br/>
 	
-	<input type="submit" name="submit" value="Search by Parameters" > <br>
+	<input type="submit" name="submit" value="Search by Parameters" id = "search" > <br>
 	<input type="reset" name="reset"><br><br><br>
 	<input type="submit" name="submit" value="Return to Home page" >
 </form>

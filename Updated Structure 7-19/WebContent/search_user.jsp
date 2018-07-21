@@ -5,7 +5,7 @@
 <head>
 <script type="text/javascript" src="script.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Search Books</title>
+<title>Patron Search Books</title>
 
 </head>
 <body>
@@ -28,7 +28,7 @@
 	
 	<input type="submit" name="submit" value="Search" >
 	<input type="reset" name="reset"><br>
-	<input type="submit" name="submit" value="Return to Home page" >
+	<input type="submit" name="return" value="Return to Home page" >
 </form>
 <form name="regform" action="LoanController" method="post">
 	<br> <br> Check Out Book <br>

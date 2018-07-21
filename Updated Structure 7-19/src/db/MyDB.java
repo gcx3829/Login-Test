@@ -9,8 +9,10 @@ package db;
  */
 public interface MyDB {
 
-	String USER="cs_6359_group_4";
-	String PASS="1234";
+	//String USER="cs_6359_group_4";
+	//String PASS="1234";
+	String USER="root";
+	String PASS="mypass";
 	String CONN_URL="jdbc:mysql://localhost/cs_6359?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 	
 	

@@ -4,14 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Welcome Page</title>
+<title>Patron Welcome Page</title>
 </head>
 <body>
 <h1> ${message} !!! </h1>
 <h2> ${secondMessage}</h2>
 <form name="checkform" action="LoanController" method="post">
 	ISBN Number: <input type="text" name="ISBN" id="ISBN">
-	<input type="submit" name="submit" value="Return"> <br><br><br>
+	<input type="submit" name="return" value="Return"> <br><br><br>
 	<input type="submit" name="submit" value="Search and Check Out">
 </form>
 <h3> Checked Out Books</h3>

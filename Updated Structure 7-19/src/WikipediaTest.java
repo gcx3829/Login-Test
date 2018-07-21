@@ -1,6 +1,7 @@
 import org.junit.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+
 public class WikipediaTest {
 	WebDriver driver;
 	@Before
