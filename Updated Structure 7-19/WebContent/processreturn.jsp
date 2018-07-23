@@ -18,17 +18,18 @@
 	<br/>
 	<h2> What is the status of the book</h2>
 	
-	<input type="submit" name="submit" value="Presentable" >
-	<input type="submit" name="submit" value="Repair Needed" >
-	<input type="submit" name="submit" value="Ruined" >
+	<input type="submit" name="submit" value="Presentable"  id = "presentable">
+	<input type="submit" name="submit" value="Repair Needed"  id = "repair needed">
+	<input type="submit" name="submit" value="Ruined"  id = "ruined">
 	<br><br><br>
 	<input type="reset" name="reset">
 	<br>
-	<input type="submit" name="submit" value="Return to Home page" >
+	<input type="submit" name="submit" value="Return to Home page" id = "go home">
 </form>
 <br/>
 <br>
-<table rules = "all"> ${displayTable} </table> 
+<table id="Returned"
+rules = "all">> ${displayTable} </table> 
 <a href = "index.jsp">Back to index</a>
 </body>
 </html>
