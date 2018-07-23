@@ -44,12 +44,14 @@
 	
 	<br/>
 	
-	<input type="submit" name="submit" value="Edit Title" >
-	<input type="submit" name="submit" value="Edit Book" >
-	<input type="reset" name="reset">
+	<input type="submit" name="submit" value="Edit Title" id = "edit title">
+	<input type="submit" name="submit" value="Edit Book" id = "edit book"> 
+	<input type="reset" name="reset" id = "reset"> <br><br><br>
+	<input type="submit" name="submit" value="Return to Home page" id = "go home">
 </form>
 <br/>
-<table rules = "all"> ${displayTable} </table> 
+<table id="AllBooks"
+rules = "all"> ${displayTable} </table> 
 <a href = "index.jsp">Back to index</a>
 </body>
 </html>
