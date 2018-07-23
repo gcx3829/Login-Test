@@ -6,9 +6,9 @@
 <script type="text/javascript" src="script.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Patron Search Books</title>
-
 </head>
 <body>
+<h2> ${secondMessage}</h2>
 <form name="regform" action="SearchController" method="post">
 	<br>${message}<br>
 	Search <br>
@@ -26,19 +26,23 @@
 	
 	<br/>
 	
-	<input type="submit" name="submit" value="Search" >
-	<input type="reset" name="reset"><br>
-	<input type="submit" name="return" value="Return to Home page" >
+	<input type="submit" name="submit" value="Search"  id = "search">
+	<input type="reset" name="reset" id = "reset"><br>
+	<input type="submit" name="submit" value="Return to Home page"  id = "go home">
 </form>
-<form name="regform" action="LoanController" method="post">
+<form name="regform" action="CheckOutController" method="post">
 	<br> <br> Check Out Book <br>
 	
 	Check Out ISBN:   <input type="text" name="ISBN" id = "ISBN"> <br>
-	<input type="submit" name="submit" value="Check Out"><br>
+	<input type="submit" name="submit1" value="Check Out" id = "check out"><br>
 	<br/>
 </form>
 <br/>
-<table rules = "all"> ${displayTable} </table> <br><br>
+<h3> Search Results </h3>
+<table id="SearchResults"
+rules = "all"> ${displayTable} </table> <br><br>
+
+
 <a href = "index.jsp">Back to index</a>
 </body>
 </html>
