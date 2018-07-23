@@ -40,6 +40,7 @@
 	<option value=2>Returned</option>
 	<option value=3>Under Repair</option>
 	<option value=4>Not Presentable</option>
+	<option value=5>Waitlisted</option>
 	</select>
 	
 	<br/>
@@ -49,7 +50,8 @@
 	<input type="submit" name="submit" value="Return to Home page" >
 </form>
 <br/>
-<table rules = "all"> ${displayTable} </table> <br><br>
+<table id="SearchResults"
+rules = "all"> ${displayTable} </table> <br><br>
 <a href = "index.jsp">Back to index</a>
 </body>
 </html>
