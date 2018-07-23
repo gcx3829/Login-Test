@@ -5,7 +5,7 @@
 <head>
 <script type="text/javascript" src="script.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Edit Book</title>
+<title>Add Book</title>
 
 </head>
 <body>
@@ -22,8 +22,9 @@
 	
 	Edition: <input type="text" name="edition" id = "edition"><br>
 	
-	<input type="submit" name="submit" value="addbookComplete" >
-	<input type="reset" name="reset">
+	<input type="submit" name="submit" value="addbookComplete" id = "add">
+	<input type="reset" name="reset" id = "reset"><br><br><br>
+	<input type="submit" name="submit" value="Return to Home page" id = "go home">
 </form>
 <a href = "index.jsp">Back to index</a>
 </body>
