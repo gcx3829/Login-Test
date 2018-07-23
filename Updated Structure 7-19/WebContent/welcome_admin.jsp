@@ -10,17 +10,19 @@
 <h1> ${message} !!! </h1>
 <h2> ${secondMessage}</h2>
 <form name="checkform" action="ManageController" method="post">
-	<input type="submit" name="submit" value="addbook">
-	<input type="submit" name="submit" value="editbook">
-	<input type="submit" name="submit" value="process returned books">
+	<input type="submit" name="submit" value="addbook" id = "Add">
+	<input type="submit" name="submit" value="editbook" id = "Edit">
+	<input type="submit" name="submit" value="process returned books" id = "process">
 	<input type="submit" name="submit" value="Search" id = "search">
 </form>
 
-<table rules = "all"> ${displayTable} </table> 
+<table id="BookList"
+rules = "all"> ${displayTable} </table> 
 
 <br/>
 
-<table rules = "all"> ${displayTable2} </table> 
+<table id="UserList"
+rules = "all"> ${displayTable2} </table> 
 
 	<a href="logout.jsp">logout</a>
 
