@@ -21,7 +21,7 @@ public class LoginTest {
 	public void testLoginPageOpen() throws InterruptedException{
 		WebElement link = driver.findElement(By.name("loginLink"));
 		link.click();
-		Thread.sleep(500);
+		////Thread.sleep(500);
 		Assert.assertEquals("Login page", driver.getTitle());
 	}
 	
@@ -30,7 +30,7 @@ public class LoginTest {
 	public void testDbConn() throws InterruptedException{
 		WebElement link = driver.findElement(By.name("loginLink"));
 		link.click();
-		Thread.sleep(500);
+		//////Thread.sleep(500);
 		WebElement pageBody = driver.findElement(By.tagName("p"));
 		String text = pageBody.getText();
 		Assert.assertEquals("Database connection succeeded", text);
@@ -41,7 +41,7 @@ public class LoginTest {
 	public void testStaffLoginSuccess() throws InterruptedException{
 		WebElement link = driver.findElement(By.name("loginLink"));
 		link.click();
-		Thread.sleep(500);
+		//Thread.sleep(500);
 		
 		WebElement usernameText = driver.findElement(By.name("username"));
 		usernameText.sendKeys("admin");
@@ -53,7 +53,7 @@ public class LoginTest {
 		
 		WebElement loginBtn = driver.findElement(By.name("submit"));
 		loginBtn.click();
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		Assert.assertEquals("Staff Welcome Page", driver.getTitle());
 	}
 	
@@ -62,7 +62,7 @@ public class LoginTest {
 	public void testPatronLoginSuccess() throws InterruptedException{
 		WebElement link = driver.findElement(By.name("loginLink"));
 		link.click();
-		Thread.sleep(500);
+		//Thread.sleep(500);
 		
 		WebElement usernameText = driver.findElement(By.name("username"));
 		usernameText.sendKeys("customer1");
@@ -74,7 +74,7 @@ public class LoginTest {
 		
 		WebElement loginBtn = driver.findElement(By.name("submit"));
 		loginBtn.click();
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		Assert.assertEquals("Patron Welcome Page", driver.getTitle());
 	}
 	

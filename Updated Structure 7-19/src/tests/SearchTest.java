@@ -15,7 +15,7 @@ public class SearchTest {
 		driver.get("http://localhost:8080/Updated_Structure_7-19/index.jsp");
 		WebElement link = driver.findElement(By.name("loginLink"));
 		link.click();
-		Thread.sleep(500);
+		//Thread.sleep(500);
 		
 	}
 	
@@ -31,7 +31,7 @@ public class SearchTest {
 		
 		WebElement loginBtn = driver.findElement(By.name("submit"));
 		loginBtn.click();
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		Assert.assertEquals("Patron Welcome Page", driver.getTitle());	
 		WebElement searchBtn = driver.findElement(By.name("submit"));
 		searchBtn.click();
@@ -58,7 +58,7 @@ public class SearchTest {
 		
 		WebElement loginBtn = driver.findElement(By.name("submit"));
 		loginBtn.click();
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		Assert.assertEquals("Patron Welcome Page", driver.getTitle());	
 		WebElement searchBtn = driver.findElement(By.name("submit"));
 		searchBtn.click();
@@ -84,7 +84,7 @@ public class SearchTest {
 		//passwordText.submit();
 		WebElement loginBtn = driver.findElement(By.name("submit"));
 		loginBtn.click();
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		Assert.assertEquals("Staff Welcome Page", driver.getTitle());	
 		
 		WebElement searchBtn = driver.findElement(By.id("search"));
@@ -98,7 +98,7 @@ public class SearchTest {
 		WebElement searchRes = driver.findElement(By.tagName("table"));
 		String tableText = searchRes.getText();
 		Assert.assertNotEquals("NULL", tableText);
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 	}
 	
 	
@@ -113,7 +113,7 @@ public class SearchTest {
 		//passwordText.submit();
 		WebElement loginBtn = driver.findElement(By.name("submit"));
 		loginBtn.click();
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 		Assert.assertEquals("Staff Welcome Page", driver.getTitle());	
 		
 		WebElement searchBtn = driver.findElement(By.id("search"));
@@ -127,7 +127,7 @@ public class SearchTest {
 		WebElement searchRes = driver.findElement(By.tagName("table"));
 		String tableText = searchRes.getText();
 		Assert.assertNotEquals("NULL", tableText);
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 	}
 	
 	
