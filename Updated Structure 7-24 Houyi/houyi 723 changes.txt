@@ -1,0 +1,2 @@
+1. public Map<String, Book> rentedBooks(User u)           function in loanDaoimpl 
+    ps.setString(1,u.getname());     ---->      changed to ps.setString(1,u.getUsername());
