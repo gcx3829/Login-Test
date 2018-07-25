@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.search.Search;
-import domain.search.SearchBookDetails;
 import domain.search.SearchTitles;
-import domain.search.SearchUsers;
 import domain.user.*;
 
 /**
@@ -35,7 +33,7 @@ public class ReturnsController extends HttpServlet {
 			
 			overDue_display = u.displayOverdue();
 			request.setAttribute("displayTable1", overDue_display);
-			user_display = u.displayBooks();
+			user_display = u.displayCheckedOutBooks();
 			request.setAttribute("displayTable", user_display);
 			request.setAttribute("displayTable2", u.getWaitlistPositions());
 			request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
@@ -48,11 +46,3 @@ public class ReturnsController extends HttpServlet {
 		}
 	}
 }
-
-/*
- * <form name="checkform" action="LoanController" method="post">
-	ISBN Number: <input type="text" name="ISBN" id="ISBN">
-	<input type="submit" name="submit" value="Return"> <br><br><br>
-	<input type="submit" name="submit" value="Search and Check Out">
-</form>
-*/

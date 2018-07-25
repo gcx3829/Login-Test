@@ -2,7 +2,6 @@ package domain.user;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -130,7 +129,7 @@ public class User {
 		return rented;
 	}
 	
-	public String displayBooks() {
+	public String displayCheckedOutBooks() {
 		String message="";
 		StringBuilder displayTable = new StringBuilder();
 		List<Book> books = getRentedBooks();
@@ -165,14 +164,12 @@ public class User {
 	
 	public String displayOverdue() {
 		String message="";
-		LoanDao loanDao = new LoanDaoImpl();
 		
 		List<Book> books = getOverdueBooks();
 		StringBuilder displayTable = new StringBuilder();
 		if(books.isEmpty()) {
 			message = "No books are overdue";
 		}else {
-			//displayTable.append("<br>The Overdue Book Are Listed Below</br>");
 			displayTable.append("<tr><th>ISBN</th><th>Title</th><th>Author</th><th>Genre</th><th>Edition</th>"
 					+ "<th>Check Out Date</th><th>Return Deadline</th></tr>"); //set up second line of table
 			

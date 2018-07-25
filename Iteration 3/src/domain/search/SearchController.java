@@ -22,10 +22,6 @@ public class SearchController extends HttpServlet {
 		String submitType = request.getParameter("submit");
 		String book_table;
 		
-		//int type = 0; // replace this code with something that gets userType
-		//User user = userDao.getTypeDB(username);
-		//int usertype = user.getUsertype();
-		//int usertype = Integer.parseInt(request.getSession().getAttribute("usertype").toString());
 		User u = (User)request.getSession().getAttribute("user");
 		int usertype = u.getUsertype();
 		
@@ -62,52 +58,19 @@ public class SearchController extends HttpServlet {
 				request.setAttribute("displayTable2", user_display); // new code
 				request.getRequestDispatcher("welcome_admin.jsp").forward(request, response);
 			}else {
-				//Search sb = new SearchCheckedout(username);
-				//String user_display = sb.find();
 				
 				u.setRentedBooks();
 				String OverDue_display = u.displayOverdue();
 				request.setAttribute("displayTable1", OverDue_display);
 				request.setAttribute("overdueMessage", u.getTotalOverdueFees(1));
-				String user_display = u.displayBooks();
+				String user_display = u.displayCheckedOutBooks();
 				request.setAttribute("displayTable", user_display);
 				request.setAttribute("displayTable2", u.getWaitlistPositions());
 				
 				request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
 				
-				
-				/*
-				u.setRentedBooks();
-				String user_display = u.displayBooks();
-				request.setAttribute("displayTable", user_display);
-				request.setAttribute("displayTable2", u.getWaitlistPositions());
-				request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
-				*/
 
 			}
-		}/*else{
-			if (usertype == 1) {
-				String user_display;
-				//ManageUsers mu = new ManageUsers();
-				//b.setNull();
-				//user_display = search.displayBooks(search.search(b));
-				//request.setAttribute("displayTable", user_display);
-				//user_display = mu.displayUsers(); // new code
-				Search sb = new SearchBookDetails("","","","","","","");
-				String book_display = sb.find();
-				request.setAttribute("displayTable", book_display);
-				Search su = new SearchUsers(); //new code
-				user_display = su.find(); // new code
-				request.setAttribute("displayTable2", user_display); // new code
-				request.getRequestDispatcher("welcome_admin.jsp").forward(request, response);
-			}else {
-				String user_display;
-				b.setNull();
-				user_display = search.displayTitles(search.search(b));
-				request.setAttribute("displayTable", user_display);
-				request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
-				
-			}
-		}*/
+		}
 	}
 }

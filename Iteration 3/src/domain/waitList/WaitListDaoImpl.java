@@ -45,7 +45,7 @@ public class WaitListDaoImpl implements WaitListDao {
 			ps.setInt(3, position);
 			ps.setString(4, LocalDateTime.now().plusDays(14).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 			
-			int status = ps.executeUpdate();
+			ps.executeUpdate();
 			
 			conn.close();
 		}catch(Exception e){
@@ -57,17 +57,16 @@ public class WaitListDaoImpl implements WaitListDao {
 	@Override
 	public void deleteUser(Book b, User u) {
 		// TODO Auto-generated method stub
-		int status;
 		try {
 			conn = db.getConnection();
 			ps = conn.prepareStatement("delete from waitlist where ISBN = ? and username = ?");
 			ps.setString(1, b.getISBN());
 			ps.setString(2, u.getUsername());
-			status = ps.executeUpdate();
+			ps.executeUpdate();
 			
 			ps = conn.prepareStatement("update collection set status = 1 where ISBN = ? and status = 5");
 			ps.setString(1, b.getISBN());
-			status = ps.executeUpdate();
+			ps.executeUpdate();
 			conn.close();
 		}
 		catch(Exception e){
@@ -200,8 +199,6 @@ public class WaitListDaoImpl implements WaitListDao {
 
 	@Override
 	public void sleepingUser() {
-		// TODO Auto-generated method stub
-		int status=2;
 		try{
 			conn = db.getConnection();
 			ps =conn.prepareStatement("select RentByDate, ISBN, Username"
@@ -217,7 +214,7 @@ public class WaitListDaoImpl implements WaitListDao {
 			    	ps = conn.prepareStatement("delete from waitlist where waitlist.ISBN = ? and  waitlist.Username = ?");
 			    	ps.setString(1, rs.getString(2));
 			    	ps.setString(2, rs.getString(3));
-			    	status = ps.executeUpdate();
+			    	ps.executeUpdate();
 			    }
 			}
 		}catch(Exception e){

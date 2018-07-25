@@ -8,12 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import domain.book.Book;
-import domain.loan.LoanDao;
-import domain.loan.LoanDaoImpl;
 import domain.search.Search;
-import domain.search.SearchBookDetails;
 import domain.search.SearchTitles;
-import domain.search.SearchUsers;
 import domain.user.*;
 import domain.waitList.WaitListDao;
 import domain.waitList.WaitListDaoImpl;
@@ -33,7 +29,6 @@ public class CheckOutController extends HttpServlet {
 		String submitType = request.getParameter("submit");
 		User u = (User)request.getSession().getAttribute("user"); //get user details again
 		Book b = new Book(request.getParameter("ISBN"));
-		LoanDao loanDao = new LoanDaoImpl();
 		WaitListDao waitlistdao = new WaitListDaoImpl();
 		String user_display;
 		String OverDue_display;
@@ -46,7 +41,7 @@ public class CheckOutController extends HttpServlet {
 				OverDue_display = u.displayOverdue(); // displays overdue books
 				request.setAttribute("displayTable1", OverDue_display);
 				request.setAttribute("overdueMessage", u.getTotalOverdueFees(1));
-				user_display = u.displayBooks(); //displays all checked out books
+				user_display = u.displayCheckedOutBooks(); //displays all checked out books
 				request.setAttribute("displayTable", user_display);
 				request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
 				return;
@@ -76,7 +71,7 @@ public class CheckOutController extends HttpServlet {
 			OverDue_display = u.displayOverdue();
 			request.setAttribute("displayTable1", OverDue_display);
 			request.setAttribute("overdueMessage", u.getTotalOverdueFees(1));
-			user_display = u.displayBooks();
+			user_display = u.displayCheckedOutBooks();
 			request.setAttribute("displayTable", user_display);
 			request.setAttribute("displayTable2", u.getWaitlistPositions());
 			
@@ -91,7 +86,7 @@ public class CheckOutController extends HttpServlet {
 			OverDue_display = u.displayOverdue();
 			request.setAttribute("displayTable1", OverDue_display);
 			request.setAttribute("overdueMessage", u.getTotalOverdueFees(1));
-			user_display = u.displayBooks();
+			user_display = u.displayCheckedOutBooks();
 			request.setAttribute("displayTable", user_display);
 			request.setAttribute("displayTable2", u.getWaitlistPositions());
 			request.getRequestDispatcher("welcome_user.jsp").forward(request, response);

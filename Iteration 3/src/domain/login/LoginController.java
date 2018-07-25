@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import domain.user.*;
 import domain.waitList.WaitListDao;
 import domain.waitList.WaitListDaoImpl;
-import domain.book.Book;
 //import domain.manage.ManageUsers;
 //import domain.search.DisplayAll;
 //import domain.search.OldSearch;
@@ -48,35 +47,22 @@ public class LoginController extends HttpServlet {
 		waitListDao.sleepingUser();
 		if(submitType.equals("login") && u!=null && u.getName()!=null){
 			request.setAttribute("message", "Hello "+u.getName());
-			
-			
-			//extra information for administrator 
-			
-			//test for showing book detail
-			Book b = new Book();
-			//OldSearch search = new OldSearch();
-			b.setNull();
-			//user_display = DisplayAll.displayCollection();
 			if(u.getUsertype()==1) {
-				//user_display = search.displayBooks(search.search(b));
-				//request.setAttribute("displayTable", user_display);
 				Search sb = new SearchBookDetails("","","","","","","");
 				String book_display = sb.find();
 				request.setAttribute("displayTable", book_display);
-				Search su = new SearchUsers(); //new code
-				user_display = su.find(); // new code
+				Search su = new SearchUsers();
+				user_display = su.find();
 				request.setAttribute("displayTable2", user_display); // new code
 				request.setAttribute("secondMessage", "Hello Administrator");
 				request.getRequestDispatcher("welcome_admin.jsp").forward(request, response);
 				}
 			else {
-				//Search sb = new SearchCheckedout(username);
-				//user_display = sb.find();
 				u.setRentedBooks();
 				String OverDue_display = u.displayOverdue();
 				request.setAttribute("displayTable1", OverDue_display);
 				request.setAttribute("overdueMessage", u.getTotalOverdueFees(1));
-				user_display = u.displayBooks();
+				user_display = u.displayCheckedOutBooks();
 				request.setAttribute("displayTable", user_display);
 				request.setAttribute("displayTable2", u.getWaitlistPositions());
 				request.getRequestDispatcher("welcome_user.jsp").forward(request, response);

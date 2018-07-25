@@ -5,12 +5,12 @@ import domain.user.User;
 
 public class WaitListEntry {
 	private Book book;
-	private User waitlistee;
+	//private User waitlistee; //not used in this iteration
 	private int position;
 	
 	public WaitListEntry(Book b, User u, int i) {
 		this.book = b;
-		this.waitlistee = u;
+		//this.waitlistee = u;
 		this.position = i;
 	}
 	
