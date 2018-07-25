@@ -1,0 +1,9 @@
+Altered edit and add tests to test whether operation was successful
+altered tests and sql to use certain books
+Moved many of the methods Houyi added to loanDao into the user object
+altered where and how the fee shows up
+added payment objects, which send the charges to an API for a physical object (Cashier)
+created new controllers for each use case
+created new test class to hold variables specific to our machines (like address of index page)
+successfully tested all use cases
+removed redundant files and use cases
