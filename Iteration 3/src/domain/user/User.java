@@ -13,17 +13,12 @@ import domain.book.BookDaoImpl;
 import domain.loan.Loan;
 import domain.loan.LoanDao;
 import domain.loan.LoanDaoImpl;
-import domain.payment.LibraryCashierAPI;
+import domain.payment.CashRegisterAPI;
 import domain.payment.PayFeesCommand;
 import domain.waitList.WaitListDao;
 import domain.waitList.WaitListDaoImpl;
 import domain.waitList.WaitListEntry;
 
-/**
- * 
- * @author mehra
- *
- */
 public class User {
 
 	private String username;
@@ -86,7 +81,7 @@ public class User {
 		message = "Book " + b.getTitle()+" was returned successfully.";
 		if (b.overdueFine(1)>0) { 
 			message += " Fine of $" + b.overdueFine(1) + " must be paid due to overdue charges for this book.";
-			PayFeesCommand pf = new LibraryCashierAPI();
+			PayFeesCommand pf = new CashRegisterAPI();
 			try {
 				pf.pay(b.overdueFine(1)); // send overdue fine to physical Cashier
 			} catch (InterruptedException e) {
@@ -233,7 +228,7 @@ public class User {
 			displayTable.append("<tr><th>There are no books waitlisted by you at this time</th></tr>");
 		} else {
 			//
-			displayTable.append("<tr><th>Position</th><th>Title</th><th>Author</th><th>Genre</th><th>Edition</th></tr>");
+			displayTable.append("<tr><th>Position</th><th>ISBN</th><th>Title</th><th>Author</th><th>Genre</th><th>Edition</th></tr>");
 		}
 		
 		for (int i=0; i<userPos.size(); i++) {
