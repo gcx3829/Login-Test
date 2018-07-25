@@ -124,7 +124,6 @@ public class SearchBookDetails implements Search{
 				}else if (books.get(i).getStatus().compareTo("5")==0){
 					statusText = "Reserved (Waitlist)";
 				}
-				//statusText = books.get(i).getStatus();
 				displayTable.append("<td>").append(statusText).append("</td>"); //prints status text
 				String temp;
 				if (books.get(i).getRentedBy().isEmpty()) {temp = "N/A"; }
@@ -138,7 +137,6 @@ public class SearchBookDetails implements Search{
 				displayTable.append("<td>").append(temp).append("</td>"); // prints Return By Date
 				
 				displayTable.append("</tr>"); //for end of line in table
-				//message = Integer.toString(i);
 			}
 		}
 		message=displayTable.toString(); //transforms stringbuilder into string

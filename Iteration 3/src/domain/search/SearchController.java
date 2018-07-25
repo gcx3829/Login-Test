@@ -53,9 +53,9 @@ public class SearchController extends HttpServlet {
 				Search sb = new SearchBookDetails("","","","","","","");
 				String book_display = sb.find();
 				request.setAttribute("displayTable", book_display);
-				Search s = new SearchUsers(); //new code
-				user_display = s.find(); // new code
-				request.setAttribute("displayTable2", user_display); // new code
+				Search s = new SearchUsers();
+				user_display = s.find(); 
+				request.setAttribute("displayTable2", user_display); 
 				request.getRequestDispatcher("welcome_admin.jsp").forward(request, response);
 			}else {
 				
@@ -68,8 +68,6 @@ public class SearchController extends HttpServlet {
 				request.setAttribute("displayTable2", u.getWaitlistPositions());
 				
 				request.getRequestDispatcher("welcome_user.jsp").forward(request, response);
-				
-
 			}
 		}
 	}

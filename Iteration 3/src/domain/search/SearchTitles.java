@@ -60,7 +60,6 @@ public class SearchTitles implements Search{
 			}
 			
 			displayTable.append("</tr>"); //for end of line in table
-			//message = Integer.toString(i);
 		}
 		message=displayTable.toString(); //transforms stringbuilder into string
 		return message;
