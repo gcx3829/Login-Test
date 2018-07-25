@@ -28,7 +28,7 @@ public class CheckOutController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String submitType = request.getParameter("submit");
 		User u = (User)request.getSession().getAttribute("user"); //get user details again
-		Book b = new Book(request.getParameter("ISBN"));
+		Book b = new Book(request.getParameter("ISBN"),"ISBN");
 		WaitListDao waitlistdao = new WaitListDaoImpl();
 		String user_display;
 		String OverDue_display;
