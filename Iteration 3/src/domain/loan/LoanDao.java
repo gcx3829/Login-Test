@@ -12,8 +12,6 @@ public interface LoanDao {
 	
 	public int end(Loan l);
 	
-	public String Check(User u, Book b);
-	
 	public List<Book> getUserRentedBooks(User u);
 	
 	public Map<String, Book> rentedBooks(User u);

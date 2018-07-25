@@ -116,12 +116,6 @@ public class LoanDaoImpl implements LoanDao{
 		return books;
 	}
 	
-	
-	
-	public String Check(User u, Book b) {
-		return null;
-	};
-	
 	public Map<String, Book> rentedBooks(User u) {
 		ResultSet rs;
 		Map<String, Book> books = new HashMap<String, Book>();
