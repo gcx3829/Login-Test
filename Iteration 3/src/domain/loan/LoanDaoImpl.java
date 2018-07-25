@@ -3,9 +3,6 @@ package domain.loan;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +11,6 @@ import db.DbManager;
 import domain.book.Book;
 import domain.user.User;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class LoanDaoImpl implements LoanDao{
 	static Connection conn;
@@ -196,33 +192,6 @@ public class LoanDaoImpl implements LoanDao{
 			System.out.println(e);
 			return 2;
 		}
-	}
-	
-	public double CountOverdue(User u, double FineRate) {
-		double DueAmount = 0;
-		List<Book> books = u.getRentedBooks();
-		Iterator<Book> book = books.iterator();
-		while (book.hasNext()) {
-		   Book b = book.next();
-
-		   String time = b.getReturnByDate();
-		   LocalDateTime returnDate = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		   if(returnDate.compareTo(LocalDateTime.now()) < 0) {
-				long daysBetween = ChronoUnit.DAYS.between(returnDate, LocalDateTime.now());
-				DueAmount += FineRate * daysBetween;
-			}
-		    
-		}
-
-		return DueAmount;
-	}
-	
-	public int CheckOverdueLimit(User u) {
-		List<Book> books = u.getRentedBooks();
-		if (books.size() >= 4) {
-			return 0;
-		}
-		return 1;
 	}
 
 }
