@@ -49,7 +49,7 @@ public class CheckOutController extends HttpServlet {
 			
 			int Status = waitlistdao.checkUser(b, u); // checks if title has already been rented by this user
 			if(Status == 1) {
-				b = u.getLoanedBook(b.getISBN());
+				b = u.getLoanedBook(request.getParameter("ISBN"));
 				String text = "You already rented book " +b.getTitle()+" !!! Check out failed";
 				request.setAttribute("secondMessage", text);
 			}else if (Status == 2) {   /// book is not available and user is not in waiting list, add to wait list
@@ -57,7 +57,7 @@ public class CheckOutController extends HttpServlet {
 				String text = "You have been successfully added in to wait list of "+ b.getISBN() +" book";
 				request.setAttribute("secondMessage", text);
 			}else if (Status == 3){// book is not available and user is already in waiting list, can not add to wait list
-				String text = "You are already in the wait list of "+ b.getISBN() +" book";
+				String text = "You are already in the wait list of "+ request.getParameter("ISBN") +" book";
 				request.setAttribute("secondMessage", text);
 			}else if (Status == 4){// book is not available and user is on 0 position, delete user in wait list, and check out book
 				waitlistdao.deleteUser(b, u);
