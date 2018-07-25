@@ -25,7 +25,6 @@ public class BookDaoImpl implements BookDao {
 			int inventoryID = largestInventoryID();
 			if (getTitle(b.getISBN()).getTitle() == null) { //use find status to see if book is in the database
 				conn = db.getConnection();
-				//System.out.printf("Making a new Title \n");
 				ps = conn.prepareStatement("insert into titlelist values(?,?,?,?,?)");
 				ps.setString(1, b.getISBN());
 				ps.setString(2, b.getTitle());
@@ -39,19 +38,13 @@ public class BookDaoImpl implements BookDao {
 				ps.setString(2, b.getISBN());
 				ps.executeUpdate();
 				
-				//statement.close();
-				//message = "Added a new Copy of '" + b.getTitle() + "' successfully!";
 				message = "Added book '" + b.getTitle() + "' successfully!";
 				conn.close();
 			}else { // if title already exists; just add a new copy
-				//System.out.printf("Found Title is " + getTitle(b.getISBN()).getTitle() + " \n");
 				conn = db.getConnection();
-				//System.out.printf("Adding a new Copy \n");
 				ps =conn.prepareStatement("insert into collection values(?,?,1)");
 				ps.setString(2, b.getISBN());
-				//System.out.printf("Added ISBN\n");
 				ps.setInt(1, inventoryID);
-				//System.out.printf("Added ID \n");
 				ps.executeUpdate();
 
 				message = "Added a new Copy of '" + getTitle(b.getISBN()).getTitle() + "' successfully!";
