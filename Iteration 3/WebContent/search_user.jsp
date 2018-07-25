@@ -20,14 +20,13 @@
 	
 	Author: <input type="text" name="author" id = "author"><br>
 	
-	
-	Category: <input type="text" name="Genre" id = "genre"><br>
+	Category: <input type="text" name="genre" id = "genre"><br>
 	
 	Edition: <input type="text" name="edition" id = "edition"><br>
 	
 	<br/>
 	
-	<input type="submit" name="submit" value="Search"  id = "search">
+	<input type="submit" name="submit" value="Search"  id = "Search">
 	<input type="reset" name="reset" id = "reset"><br>
 	<input type="submit" name="submit" value="Return to Home page"  id = "go home">
 </form>
