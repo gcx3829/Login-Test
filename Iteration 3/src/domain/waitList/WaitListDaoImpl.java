@@ -56,7 +56,6 @@ public class WaitListDaoImpl implements WaitListDao {
 
 	@Override
 	public void deleteUser(Book b, User u) {
-		// TODO Auto-generated method stub
 		try {
 			conn = db.getConnection();
 			ps = conn.prepareStatement("delete from waitlist where ISBN = ? and username = ?");
@@ -175,7 +174,6 @@ public class WaitListDaoImpl implements WaitListDao {
 
 	@Override
 	public List<WaitListEntry> getBookPositions(User u) {
-		// TODO Auto-generated method stub
 
 		List<WaitListEntry> userPos = new ArrayList<WaitListEntry>();
 		try{
@@ -220,12 +218,6 @@ public class WaitListDaoImpl implements WaitListDao {
 		}catch(Exception e){
 			System.out.println(e);
 		}
-	}
-
-	@Override
-	public List<User> getWaitlist(Book b) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
