@@ -1,8 +1,5 @@
 package domain.book;
 
-//import java.time.LocalDateTime;
-//import java.time.format.DateTimeFormatter;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +16,6 @@ public class BookDaoImpl implements BookDao {
 	
 	public String addNewBook(Book b) {
 		String message="";
-		System.out.printf("In newBook function \n");
 		try {
 			// if book is not in titlelist table, add it into titlelist and collection
 			int inventoryID = largestInventoryID();
@@ -249,27 +245,6 @@ public class BookDaoImpl implements BookDao {
 		return status;
 	}
 	
-	/*public int updateBookDetails(Book newBook) {
-		int status = 0;
-		try {
-		conn = db.getConnection();
-		ps =conn.prepareStatement("update titlelist set ISBN = ?, Title = ?, Author = ?, "
-				+ "Edition = ?, Genre = ? where ISBN = ?");
-		ps.setString(1, newBook.getISBN());
-		ps.setString(2, newBook.getTitle());
-		ps.setString(3, newBook.getAuthor());
-		ps.setString(4, newBook.getEdition());
-		ps.setString(5, newBook.getGenre());
-		ps.setString(6, newBook.getInventoryID());
-		status = ps.executeUpdate();
-		conn.close();
-		}catch(Exception e){
-			System.out.println(e);
-		}	
-		
-		return status;
-	} */
-	
 	public int updateBook(Book newBook) {
 		int status = 0;
 		try {
@@ -376,7 +351,6 @@ public Book getFirstBook(Book book) {
 			conn = db.getConnection();
 			ps =conn.prepareStatement("update collection set Status = ? where inventoryID = ?");
 			ps.setInt(1, newStatus);
-			//ps.setString(2, book.getISBN());
 			ps.setString(2, book.getInventoryID());
 			status = ps.executeUpdate();
 			conn.close();
@@ -386,181 +360,5 @@ public Book getFirstBook(Book book) {
 		return status;
 	}
 	
-	// STUFF BELOW IS OUT OF DATE CODE; MADE LAST WEEK *************
 	
-	/*
-	@Override
-	public int addBook(Book t) {
-		
-		try{
-			// if book is not in titlelist table, add it into titlelist and collection
-			if (getTitle(t.getISBN()).getTitle() == null) { //use find status to see if book is in the database
-				conn = db.getConnection();
-				
-				Statement statement = conn.createStatement();
-				String query = "insert into titlelist values("+t.getISBN()+","+t.getTitle()+","
-						+t.getAuthor()+","+t.getGenre()+","+t.getEdition()+",1)";
-				
-				statement.addBatch(query);
-				
-				query = "insert into collection values("+t.getISBN()+",1,1,null,null,null)"; //add new title as copy 1
-				statement.addBatch(query);
-				
-				statement.executeBatch();
-				statement.close();
-				conn.close();
-			}else { // if title already exists; just add a new copy
-				int currentCopyID = largestInventoryID(); // find number of copies
-				currentCopyID ++;
-				conn = db.getConnection();
-				ps =conn.prepareStatement("insert into collection values(?,?,1,null,null,null)");
-				ps.setString(1, t.getISBN());
-				ps.setInt(2, currentCopyID);
-				ps.executeUpdate();
-				conn.close();
-			}
-			
-			return 1;
-			
-			
-
-		}catch(Exception e){
-			System.out.println(e);
-			return 0;
-
-		}
-	}
-	
-	@Override
-	public Book getBook(Book input) { //pass in inventory
-		// returns specific book; can check out this book
-		Book book = new Book();
-		try{
-			conn = db.getConnection();
-			ps =conn.prepareStatement("select titlelist.ISBN, titlelist.Title, titlelist.Author, titlelist.Edition,"
-					+ " titlelist.Genre, collection.InventoryID, collection.Status, loan.Renter,"
-					+ " loan.CheckOutDate, loan.ReturnByDate from titlelist INNER JOIN collection" 
-					+ " ON collection.ISBN = titlelist.ISBN LEFT OUTER JOIN loan ON collection.inventoryID ="
-					+ " loan.inventoryID where collection.InventoryID = ?");
-			ps.setString(1, input.getInventoryID());
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				book.setISBN(rs.getString(1));
-				book.setTitle(rs.getString(2));
-				book.setAuthor(rs.getString(3));
-				book.setEdition(rs.getString(4));
-				book.setGenre(rs.getString(5));
-				book.setInventoryID(rs.getString(6));
-				book.setStatus(rs.getString(7));
-				String temp;
-				temp=rs.getString(8); //code here used to deal with Null results
-				if (temp != null) { book.setRentedBy(temp); }
-				else {book.setRentedBy(""); }
-				temp=rs.getString(9);
-				if (temp != null) { book.setCheckOutDate(temp); }
-				else {book.setCheckOutDate(""); }
-				temp=rs.getString(10);
-				if (temp != null) { book.setReturnByDate(temp); }
-				else {book.setReturnByDate(""); }
-				if(rs.wasNull()) {
-					book.setRentedBy("");
-					book.setCheckOutDate("");
-					book.setReturnByDate("");
-				}
-			}
-			conn.close();
-		}catch(Exception e){
-			System.out.println(e);
-		}
-		return book;		
-	}
-	
-	@Override
-	public Book getTitle(Book input) { //pass in inventory
-		// returns specific book; can check out this book
-		Book book = new Book();
-		try{
-			conn = db.getConnection();
-			ps =conn.prepareStatement("select ISBN, Title, Author, Edition, Genre from titlelist where ISBN = ?");
-			ps.setString(1, input.getISBN());
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				book.setISBN(rs.getString(1));
-				book.setTitle(rs.getString(2));
-				book.setAuthor(rs.getString(3));
-				book.setEdition(rs.getString(4));
-				book.setGenre(rs.getString(5));
-			}
-			conn.close();
-		}catch(Exception e){
-			System.out.println(e);
-		}
-		return book;		
-	}
-	
-	public int findStatus(Book book) {
-		int status = 0;
-		
-		try {
-			conn = db.getConnection();
-			ps =conn.prepareStatement("select Status from collection where ISBN = ?");
-			ps.setString(1, book.getISBN());
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				if (rs.getString("Status").equals("1")) { //finds if book is available
-					status = 1;
-					break;
-				}
-				else if (rs.getString("Status").equals("1")) { //finds if book has waitlist
-					status = 5;
-					break;
-				}
-				
-			}
-			conn.close();
-		}catch(Exception e){
-			System.out.println(e);
-
-		}
-		return status;
-	}
-	
-	public int updateBook(Book oldBook, Book newBook) {
-		int status = 0;
-		try {
-		conn = db.getConnection();
-		ps =conn.prepareStatement("update titlelist set ISBN = ?, Title = ?, Author = ?, "
-				+ "Edition = ?, Genre = ? where ISBN = ?");
-		ps.setString(1, newBook.getISBN());
-		ps.setString(2, newBook.getTitle());
-		ps.setString(3, newBook.getAuthor());
-		ps.setString(4, newBook.getEdition());
-		ps.setString(5, newBook.getGenre());
-		ps.setString(6, oldBook.getISBN());
-		status = ps.executeUpdate();
-		conn.close();
-		}catch(Exception e){
-			System.out.println(e);
-		}	
-		
-		return status;
-	}
-	
-	public int titleExists(Book book) {
-		// checks if book exists
-		int status = 0;
-		try{
-			conn = db.getConnection();
-			ps =conn.prepareStatement("select Title from titlelist where ISBN = ?");
-			ps.setString(1, book.getISBN());
-			ResultSet rs = ps.executeQuery();
-			if(rs.next()){
-				status = 1; //book exists
-			}
-			conn.close();
-		}catch(Exception e){
-			System.out.println(e);
-		}
-		return status;		
-	}*/
 }

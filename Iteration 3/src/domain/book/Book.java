@@ -1,4 +1,4 @@
-package domain.book; //now using book class instead of title class
+package domain.book;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -156,19 +156,7 @@ public class Book {
 		int status = 0;
 		int status1 = 1;
 		
-		/*if(this.Status.compareTo("2")==0) {
-			//status = bookDao.changeStatus(b, condition);
-			status = this.updateStatus(condition);
-		}else if(this.Status.compareTo("3")==0) {
-			//status = bookDao.changeStatus(b, condition);
-			status = this.updateStatus(condition);
-		}*/
 		if ((this.Status.compareTo("2")==0) || (this.Status.compareTo("3")==0)) {
-			// ****** WATILIST CODE ****** //
-			//check if condition == 1. If so, call waitlist functions
-			//see if book can be made available, or if it needs to be set to waitlist status instead
-			//if it needs to be set to waitlist status, set condition = 5 
-			// ****** WATILIST CODE ****** //
 			if (condition == 1 ) {
 				// Call waitlist function
 				WaitListDao wld = new WaitListDaoImpl();
@@ -286,16 +274,9 @@ public class Book {
 		this.ReturnByDate="";
 		this.Status="";
 	}
-
-    // commented    
+ 
     @Override
     public int hashCode() {
-        /*
-        int result=17;
-        result=31*result+ISBN.hashCode();
-        result=31*result+(CopyID!=null ? CopyID.hashCode():1);
-        return result;
-        */
     	return Objects.hash(ISBN, InventoryID);
     }
 	
@@ -304,7 +285,6 @@ public class Book {
         if(obj instanceof Book){
             final Book other = (Book) obj;
             return (ISBN.compareTo(other.ISBN)==0 && InventoryID.compareTo(other.InventoryID)==0);
-            //return (Objects.equals(ISBN, other.ISBN) && Objects.equals(CopyID, this.CopyID));
         } else{
             return false;
         }
@@ -316,17 +296,5 @@ public class Book {
 	public void setInventoryID(String InventoryID) {
 		this.InventoryID=InventoryID;
 	}
-    
-	/*@Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof Book))
-            return false;
-        if (obj == this)
-            return true;
-        Book book = (Book) obj;
-        
-        // need to change to include copyID
-        return book.getISBN() == this.getISBN();
-    }*/
 
 }
