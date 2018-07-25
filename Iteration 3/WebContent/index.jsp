@@ -11,7 +11,7 @@
 	<h2>Please login or register.</h2>
 	<p>
 		<a href = login.jsp name = "loginLink" >Login</a><br>
-		<a href = register.jsp>Register</a>
+		<a href = register.jsp name = "RegistrationLink">Register</a>
 	</p>
 </body>
 </html>
