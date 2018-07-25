@@ -43,12 +43,6 @@ public class User {
 	public String checkOutBook(String ISBN ) {
 		BookDao bookDao = new BookDaoImpl();
 		String message="";
-		// ****** OVERDUE CODE ****** //
-		//call countOverdueBooks
-		//use if statement on result; if result > 2, then
-		// return message about how user needs to return their overdue books before they can check out more
-		// this countOverdue books can use the rentedBooks object
-		//if you want to handle a list, instead of a map, you can use getRentedBooks method
 		Book b = getLoanedBook(ISBN);
 		if (b!=null) {
 			message = "You already rented book " +b.getTitle()+" !!! Check out failed";
@@ -64,12 +58,6 @@ public class User {
 			message = "Book " +bookDao.getTitle(ISBN).getTitle()+" check out failed!!";
 			return message;
 		} else if (status==1) {
-			// ****** WATILIST CODE ****** //
-			// - check if book is waitlist; if it isn't return message defined below
-			// - if book is waitlisted, return different message about whether user wants
-			// to add there name to waitlist; might have to include new page, and controller changes
-			// - if book is waitlisted, but user is at position 0, return message for successful check out
-			// ****** WATILIST CODE ****** //
 			message = "Book " +bookDao.getTitle(ISBN).getTitle()+" is not available!!";
 			return message;
 		}

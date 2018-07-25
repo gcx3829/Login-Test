@@ -63,7 +63,6 @@ public class UserDaoImpl implements UserDao {
 	public List<User> getUserList() {
 		
 		//returns all titles
-		//will eventually be changed to work better with proper search function
 		ResultSet rs;
 		List<User> users = new ArrayList<User>();
 		try{
