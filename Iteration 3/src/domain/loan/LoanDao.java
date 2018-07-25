@@ -7,7 +7,6 @@ import domain.book.*;
 import domain.user.*;
 
 public interface LoanDao {
-	//public Loan find(User u, List<Book> books);
 	
 	public int add(Loan l);
 	

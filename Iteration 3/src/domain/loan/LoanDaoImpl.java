@@ -124,7 +124,6 @@ public class LoanDaoImpl implements LoanDao{
 	
 	public Map<String, Book> rentedBooks(User u) {
 		ResultSet rs;
-		//List<Book> books = new ArrayList<Book>();
 		Map<String, Book> books = new HashMap<String, Book>();
 		try{
 			conn = db.getConnection();

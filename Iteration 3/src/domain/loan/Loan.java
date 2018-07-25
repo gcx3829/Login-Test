@@ -72,46 +72,6 @@ public class Loan {
 		return 0;
 	}
 	
-	
-	/*public int validate() {// function checks status of book related to user
-		if(bookDao.titleExists(book) == 0) {
-			return 2; //book does not exist
-		}
-		//check if user has already rented that title
-		boolean hasBook = false;
-		for (Book temp : loanDao.getUserRentedBooks(renter)) {
-			if(temp.getISBN().equals(book.getISBN())) {
-				book = temp;
-				hasBook = true;
-				break;
-			}
-		}
-		
-		if (!hasBook) {
-			return 1; //book is not rented by user
-		}
-		
-		return 0;
-	}
-	
-	public int startLoan() {
-		book = bookDao.getFirstBook(book);//now b have inventory id and isbn and it is available
-		if(book.getInventoryID() == null) {// book not available
-			return 1;
-		}
-		// change book status in database
-		int changeStatus = bookDao.changeStatus(book, 0);
-		if(changeStatus == 0) { //change status failed
-			return 2;
-		}
-		this.checkOutDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		this.returnByDate = LocalDateTime.now().plusDays(14).format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-		if (loanDao.add(this)==0) { //loan not successfully added to database
-			return 2;
-		}
-		return 0;
-	}*/
-	
 	public int endLoan() {
 		int changeStatus = bookDao.changeStatus(book, 2); //set status of book to returned
 		if(changeStatus == 0) { //change status failed
