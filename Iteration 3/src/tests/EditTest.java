@@ -89,7 +89,7 @@ public class EditTest {
 		WebElement targetInvIDText = driver.findElement(By.name("TargetInventoryID"));
 		targetInvIDText.sendKeys("10");
 		WebElement isbnText = driver.findElement(By.name("ISBN"));
-		isbnText.sendKeys("000-000-00-3");
+		isbnText.sendKeys("111-111-11-2");
 		WebElement titleText = driver.findElement(By.name("title"));
 		titleText.sendKeys("editedTestTitle");
 		WebElement authorText = driver.findElement(By.name("author"));
