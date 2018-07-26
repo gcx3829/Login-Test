@@ -116,7 +116,7 @@ public class Book {
 			if (titleChange==0) { 
 				message = "Book with inventory ID " + this.InventoryID + " was not edited successfully" + message;}
 			else {
-				message = "Book with inventory ID " + this.InventoryID + " was been assigned a new "
+				message = "Book with inventory ID " + this.InventoryID + " has been assigned a new "
 						+ "title and new book details successfully" + message;
 			}
 		}		
