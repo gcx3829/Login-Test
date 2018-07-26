@@ -10,7 +10,7 @@ public class SearchTest {
 	
 	@Before
 	public void loginAndOpenSearch() throws InterruptedException{
-		System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver","chromedriver");
 		driver = new ChromeDriver();
 		driver.get(TestVar.getIndexPage()); //get index link
 		WebElement link = driver.findElement(By.name("loginLink")); // go to login page
@@ -30,11 +30,33 @@ public class SearchTest {
 		WebElement loginBtn = driver.findElement(By.name("submit"));
 		loginBtn.click(); //sumbit username and password
 		Assert.assertEquals("Patron Welcome Page", driver.getTitle());	
-		WebElement searchBtn = driver.findElement(By.name("submit1"));
+		WebElement searchBtn = driver.findElement(By.id("Search and Check Out"));
 		searchBtn.click(); //go to search and checkout page
 		WebElement isbnText = driver.findElement(By.name("ISBN"));
 		WebElement searchBtn2 = driver.findElement(By.name("submit"));
 		isbnText.sendKeys("000-000-00-0"); //get set book that exists
+		searchBtn2.click();
+		
+		WebElement searchRes = driver.findElement(By.id("SearchResults"));
+		String tableText = searchRes.getText(); //get table results
+		Assert.assertNotEquals("NULL", tableText);
+	}
+	
+	@Test
+	public void testSearchPatronEmpty() throws InterruptedException{
+		
+		WebElement usernameText = driver.findElement(By.name("username"));
+		usernameText.sendKeys("patron"); //put name as abc
+		
+		WebElement passwordText = driver.findElement(By.name("password"));
+		passwordText.sendKeys("patron"); //put password as abc
+		
+		WebElement loginBtn = driver.findElement(By.name("submit"));
+		loginBtn.click(); //sumbit username and password
+		Assert.assertEquals("Patron Welcome Page", driver.getTitle());	
+		WebElement searchBtn = driver.findElement(By.id("Search and Check Out"));
+		searchBtn.click(); //go to search and checkout page
+		WebElement searchBtn2 = driver.findElement(By.name("submit"));
 		searchBtn2.click();
 		
 		WebElement searchRes = driver.findElement(By.id("SearchResults"));
@@ -55,7 +77,7 @@ public class SearchTest {
 		WebElement loginBtn = driver.findElement(By.name("submit"));
 		loginBtn.click();
 		Assert.assertEquals("Patron Welcome Page", driver.getTitle());	
-		WebElement searchBtn = driver.findElement(By.name("submit1"));
+		WebElement searchBtn = driver.findElement(By.id("Search and Check Out"));
 		searchBtn.click(); //go to search and checkout page
 		WebElement isbnText = driver.findElement(By.name("ISBN"));
 		WebElement searchBtn2 = driver.findElement(By.name("submit"));

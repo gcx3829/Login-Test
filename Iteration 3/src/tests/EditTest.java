@@ -15,7 +15,7 @@ public class EditTest {
 	
 	@Before
 	public void login() throws InterruptedException{
-		System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver","chromedriver");
 		driver = new ChromeDriver();
 		driver.get(TestVar.getIndexPage());
 		WebElement link = driver.findElement(By.name("loginLink"));
@@ -107,8 +107,93 @@ public class EditTest {
 		//Thread.sleep(1000);
 		
 		WebElement searchRes = driver.findElement(By.id("SecondMsg"));
-		Assert.assertEquals("Book with inventory ID 10 was been assigned"
-				+ " a new title and new book details successfully", searchRes.getText());
+		Assert.assertEquals("Book with inventory ID 10 was edited successfully", searchRes.getText());
+	}
+	
+	@Test
+	public void testEditTitleNotInDatabase() throws InterruptedException{
+		
+		WebElement usernameText = driver.findElement(By.name("username"));
+		usernameText.sendKeys("admin");
+		
+		WebElement passwordText = driver.findElement(By.name("password"));
+		passwordText.sendKeys("admin");
+		//passwordText.submit();
+		WebElement loginBtn = driver.findElement(By.name("submit"));
+		loginBtn.click();
+		//Thread.sleep(1000);
+		Assert.assertEquals("Staff Welcome Page", driver.getTitle());
+		
+		WebElement editBtn = driver.findElement(By.id("Edit"));
+		editBtn.click();
+		//Thread.sleep(1000);
+		Assert.assertEquals("Edit Book", driver.getTitle());
+	
+		WebElement targetInvIDText = driver.findElement(By.name("TargetISBN"));
+		targetInvIDText.sendKeys("000-000-00-9");
+		WebElement isbnText = driver.findElement(By.name("ISBN"));
+		isbnText.sendKeys("000-000-00-3");
+		WebElement titleText = driver.findElement(By.name("title"));
+		titleText.sendKeys("editedTestTitle");
+		WebElement authorText = driver.findElement(By.name("author"));
+		authorText.sendKeys("editedTestAuthor");
+		WebElement genreText = driver.findElement(By.name("genre"));
+		genreText.sendKeys("editedTestGenre");
+		WebElement editionText = driver.findElement(By.name("edition"));
+		editionText.sendKeys("editedTestEdition");
+		
+		//Thread.sleep(1000);
+		
+
+		WebElement editBtn2 = driver.findElement(By.id("edit title"));
+		editBtn2.click();
+		//Thread.sleep(1000);
+		
+		WebElement editRes = driver.findElement(By.id("SecondMsg"));
+		Assert.assertEquals("Book with ISBN 000-000-00-9 is not in the database!!", editRes.getText());
+	}
+	
+	@Test
+	public void testEditTitleExists() throws InterruptedException{
+		
+		WebElement usernameText = driver.findElement(By.name("username"));
+		usernameText.sendKeys("admin");
+		
+		WebElement passwordText = driver.findElement(By.name("password"));
+		passwordText.sendKeys("admin");
+		//passwordText.submit();
+		WebElement loginBtn = driver.findElement(By.name("submit"));
+		loginBtn.click();
+		//Thread.sleep(1000);
+		Assert.assertEquals("Staff Welcome Page", driver.getTitle());
+		
+		WebElement editBtn = driver.findElement(By.id("Edit"));
+		editBtn.click();
+		//Thread.sleep(1000);
+		Assert.assertEquals("Edit Book", driver.getTitle());
+	
+		WebElement targetInvIDText = driver.findElement(By.name("TargetISBN"));
+		targetInvIDText.sendKeys("000-000-00-0");
+		WebElement isbnText = driver.findElement(By.name("ISBN"));
+		isbnText.sendKeys("000-000-00-0");
+		WebElement titleText = driver.findElement(By.name("title"));
+		titleText.sendKeys("editedTestTitle");
+		WebElement authorText = driver.findElement(By.name("author"));
+		authorText.sendKeys("editedTestAuthor");
+		WebElement genreText = driver.findElement(By.name("genre"));
+		genreText.sendKeys("editedTestGenre");
+		WebElement editionText = driver.findElement(By.name("edition"));
+		editionText.sendKeys("editedTestEdition");
+		
+		//Thread.sleep(1000);
+		
+
+		WebElement editBtn2 = driver.findElement(By.id("edit title"));
+		editBtn2.click();
+		//Thread.sleep(1000);
+		
+		WebElement searchRes = driver.findElement(By.id("SecondMsg"));
+		Assert.assertEquals("Book with ISBN 000-000-00-0 has been successfully edited!!", searchRes.getText());
 	}
 	@After
 	public void closePage(){

@@ -9,7 +9,7 @@ public class ProcessReturnTest {
 	
 	@Before
 	public void loginAndOpenSearch() throws InterruptedException{
-		System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver","chromedriver");
 		driver = new ChromeDriver();
 		driver.get(TestVar.getIndexPage());
 		WebElement link = driver.findElement(By.name("loginLink"));

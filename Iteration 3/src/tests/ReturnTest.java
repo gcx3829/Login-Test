@@ -12,7 +12,7 @@ public class ReturnTest {
 	
 	@Before
 	public void loginAndOpenSearch() throws InterruptedException{
-		System.setProperty("webdriver.chrome.driver","chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver","chromedriver");
 		driver = new ChromeDriver();
 		driver.get(TestVar.getIndexPage());
 		WebElement link = driver.findElement(By.name("loginLink"));
@@ -43,7 +43,7 @@ public class ReturnTest {
 		Thread.sleep(1000);
 		WebElement searchRes = driver.findElement(By.id("SecondMsg"));
 		String Text = searchRes.getText();
-		Assert.assertEquals("Book Harry Potter was returned successfully", Text);
+		Assert.assertEquals("Book Harry Potter was returned successfully.", Text);
 	}
 	
 	@Test
